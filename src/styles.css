@@ -171,13 +171,26 @@ input:disabled {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 18px;
   max-width: 1400px;
   margin: 0 auto 18px;
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface), transparent 8%);
+}
+
+.toolbar__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar__group--display {
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .toolbar__field,
@@ -464,6 +477,16 @@ input:disabled {
   .toolbar {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .toolbar__group {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .toolbar__group--display {
+    margin-left: 0;
   }
 
   .toolbar__field,

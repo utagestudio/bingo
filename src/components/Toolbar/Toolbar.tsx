@@ -30,61 +30,65 @@ export function Toolbar({
 }: ToolbarProps) {
   return (
     <div className="toolbar">
-      <button
-        className="toolbar__button toolbar__button--primary"
-        type="button"
-        aria-pressed={editMode}
-        onClick={() => onEditModeChange(!editMode)}
-      >
-        {editMode ? t("displayMode") : t("editMode")}
-      </button>
-      <label className="toolbar__field">
-        <span>{t("displaySize")}</span>
-        <select
-          value={displayScale}
-          disabled={!editMode}
-          onChange={(event) =>
-            onDisplayScaleChange(event.target.value as DisplayScale)
-          }
+      <div className="toolbar__group toolbar__group--settings">
+        <label className="toolbar__field">
+          <span>{t("theme")}</span>
+          <select
+            value={theme}
+            disabled={!editMode}
+            onChange={(event) => onThemeChange(event.target.value as Theme)}
+          >
+            <option value="light">{t("light")}</option>
+            <option value="dark">{t("dark")}</option>
+          </select>
+        </label>
+        <label className="toolbar__field">
+          <span>{t("language")}</span>
+          <select
+            value={locale}
+            disabled={!editMode}
+            onChange={(event) => onLocaleChange(event.target.value as Locale)}
+          >
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <label className="toolbar__check">
+          <input
+            type="checkbox"
+            checked={transparentBackground}
+            disabled={!editMode}
+            onChange={(event) =>
+              onTransparentBackgroundChange(event.currentTarget.checked)
+            }
+          />
+          <span>{t("transparent")}</span>
+        </label>
+      </div>
+      <div className="toolbar__group toolbar__group--display">
+        <label className="toolbar__field">
+          <span>{t("displaySize")}</span>
+          <select
+            value={displayScale}
+            disabled={!editMode}
+            onChange={(event) =>
+              onDisplayScaleChange(event.target.value as DisplayScale)
+            }
+          >
+            <option value="compact">{t("compact")}</option>
+            <option value="standard">{t("standard")}</option>
+            <option value="fit">{t("fit")}</option>
+          </select>
+        </label>
+        <button
+          className="toolbar__button toolbar__button--primary"
+          type="button"
+          aria-pressed={editMode}
+          onClick={() => onEditModeChange(!editMode)}
         >
-          <option value="compact">{t("compact")}</option>
-          <option value="standard">{t("standard")}</option>
-          <option value="fit">{t("fit")}</option>
-        </select>
-      </label>
-      <label className="toolbar__field">
-        <span>{t("theme")}</span>
-        <select
-          value={theme}
-          disabled={!editMode}
-          onChange={(event) => onThemeChange(event.target.value as Theme)}
-        >
-          <option value="light">{t("light")}</option>
-          <option value="dark">{t("dark")}</option>
-        </select>
-      </label>
-      <label className="toolbar__field">
-        <span>{t("language")}</span>
-        <select
-          value={locale}
-          disabled={!editMode}
-          onChange={(event) => onLocaleChange(event.target.value as Locale)}
-        >
-          <option value="ja">日本語</option>
-          <option value="en">English</option>
-        </select>
-      </label>
-      <label className="toolbar__check">
-        <input
-          type="checkbox"
-          checked={transparentBackground}
-          disabled={!editMode}
-          onChange={(event) =>
-            onTransparentBackgroundChange(event.currentTarget.checked)
-          }
-        />
-        <span>{t("transparent")}</span>
-      </label>
+          {editMode ? t("displayMode") : t("editMode")}
+        </button>
+      </div>
     </div>
   );
 }
