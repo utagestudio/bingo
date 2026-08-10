@@ -116,6 +116,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
 - Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
 - Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
+- Use standard as the default display size for new or reset boards.
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
 - Place display size and display mode together as a right-aligned capture/display group, ordered as display size first and display mode second.

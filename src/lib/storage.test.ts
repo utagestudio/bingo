@@ -10,6 +10,7 @@ describe("storage defaults", () => {
     expect(board.rawInput).toContain("木を1スタック集める");
     expect(board.layout).toHaveLength(25);
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
+    expect(board.appearance.displayScale).toBe("standard");
   });
 
   it("creates an English Minecraft sample when the locale is English", () => {

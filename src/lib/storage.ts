@@ -106,7 +106,7 @@ export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
     appearance: {
       transparentBackground: false,
       theme: "light",
-      displayScale: "compact",
+      displayScale: "standard",
     },
   };
 }
@@ -146,7 +146,7 @@ export function parseDisplayScale(value: unknown): DisplayScale {
     return value;
   }
 
-  return "compact";
+  return "standard";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
