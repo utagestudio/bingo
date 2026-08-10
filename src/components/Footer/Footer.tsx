@@ -1,4 +1,10 @@
-export function Footer() {
+import type { TranslationKey } from "../../lib/i18n";
+
+type FooterProps = {
+  t: (key: TranslationKey) => string;
+};
+
+export function Footer({ t }: FooterProps) {
   return (
     <footer className="site-footer">
       <a href="https://utage.games/" target="_blank" rel="noreferrer">
@@ -10,7 +16,7 @@ export function Footer() {
         target="_blank"
         rel="noreferrer"
       >
-        バグ報告・機能要望
+        {t("feedback")}
       </a>
     </footer>
   );

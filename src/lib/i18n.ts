@@ -17,7 +17,8 @@ export type TranslationKey =
   | "freeSpace"
   | "transparent"
   | "itemCount"
-  | "boardSize";
+  | "boardSize"
+  | "feedback";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -38,6 +39,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     transparent: "透過",
     itemCount: "項目数",
     boardSize: "盤面",
+    feedback: "バグ報告・機能要望",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -57,6 +59,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     transparent: "Transparent",
     itemCount: "Items",
     boardSize: "Board",
+    feedback: "Bug Reports & Feature Requests",
   },
 };
 

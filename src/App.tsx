@@ -114,7 +114,7 @@ export function App() {
             />
           ) : null}
         </div>
-        <Footer />
+        <Footer t={t} />
       </div>
     </DisplayShell>
   );
