@@ -415,7 +415,7 @@ input:disabled {
 .return-edit-button {
   position: fixed;
   right: 12px;
-  bottom: 12px;
+  top: 12px;
   min-width: 52px;
   min-height: 36px;
   border: 1px solid var(--border);
