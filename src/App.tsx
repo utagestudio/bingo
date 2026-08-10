@@ -87,7 +87,6 @@ export function App() {
             transparentBackground={activeBoard.appearance.transparentBackground}
             t={t}
             onEditModeChange={setEditMode}
-            onShuffle={shuffleBoard}
             onThemeChange={setTheme}
             onDisplayScaleChange={setDisplayScale}
             onLocaleChange={setLocale}
@@ -115,6 +114,7 @@ export function App() {
               t={t}
               onBoardNameChange={updateBoardName}
               onRawInputChange={updateRawInput}
+              onShuffle={shuffleBoard}
             />
           ) : null}
         </div>

@@ -9,7 +9,6 @@ type ToolbarProps = {
   transparentBackground: boolean;
   t: (key: TranslationKey) => string;
   onEditModeChange: (editMode: boolean) => void;
-  onShuffle: () => void;
   onThemeChange: (theme: Theme) => void;
   onDisplayScaleChange: (displayScale: DisplayScale) => void;
   onLocaleChange: (locale: Locale) => void;
@@ -24,7 +23,6 @@ export function Toolbar({
   transparentBackground,
   t,
   onEditModeChange,
-  onShuffle,
   onThemeChange,
   onDisplayScaleChange,
   onLocaleChange,
@@ -54,14 +52,6 @@ export function Toolbar({
           <option value="fit">{t("fit")}</option>
         </select>
       </label>
-      <button
-        className="toolbar__button"
-        type="button"
-        disabled={!editMode}
-        onClick={onShuffle}
-      >
-        {t("shuffle")}
-      </button>
       <label className="toolbar__field">
         <span>{t("theme")}</span>
         <select

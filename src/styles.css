@@ -379,6 +379,17 @@ input:disabled {
   line-height: 1.5;
 }
 
+.editor-panel__shuffle {
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0 14px;
+  color: var(--cell-text);
+  background: var(--surface);
+  font-weight: 800;
+  text-align: center;
+}
+
 .editor-panel__meta {
   display: flex;
   flex-wrap: wrap;

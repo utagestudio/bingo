@@ -9,6 +9,7 @@ type EditorPanelProps = {
   t: (key: TranslationKey) => string;
   onBoardNameChange: (name: string) => void;
   onRawInputChange: (rawInput: string) => void;
+  onShuffle: () => void;
 };
 
 export function EditorPanel({
@@ -20,6 +21,7 @@ export function EditorPanel({
   t,
   onBoardNameChange,
   onRawInputChange,
+  onShuffle,
 }: EditorPanelProps) {
   return (
     <aside className="editor-panel">
@@ -38,6 +40,13 @@ export function EditorPanel({
           onChange={(event) => onRawInputChange(event.currentTarget.value)}
         />
       </label>
+      <button
+        className="editor-panel__shuffle"
+        type="button"
+        onClick={onShuffle}
+      >
+        {t("shuffle")}
+      </button>
       <div className="editor-panel__meta">
         <span>
           {t("itemCount")}: {itemCount}
