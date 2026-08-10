@@ -193,8 +193,8 @@ input:disabled {
   margin-left: auto;
 }
 
-.toolbar__field,
-.toolbar__check {
+.toolbar__check,
+.toolbar__cycle-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -204,7 +204,6 @@ input:disabled {
   font-weight: 700;
 }
 
-.toolbar select,
 .editor-panel input,
 .editor-panel textarea {
   border: 1px solid var(--border);
@@ -213,14 +212,36 @@ input:disabled {
   background: var(--surface);
 }
 
-.toolbar select {
-  min-height: 36px;
-  padding: 0 10px;
-}
-
 .toolbar__button {
   border-color: var(--border);
   background: var(--surface);
+}
+
+.toolbar__cycle-button {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: transparent;
+}
+
+.toolbar__cycle-button:hover {
+  color: var(--cell-text);
+  background: color-mix(in srgb, var(--surface), transparent 20%);
+}
+
+.toolbar__cycle-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toolbar__cycle-button strong {
+  color: var(--cell-text);
+  font-weight: 900;
 }
 
 .workspace {
@@ -542,13 +563,9 @@ input:disabled {
     margin-left: 0;
   }
 
-  .toolbar__field,
   .toolbar__check,
+  .toolbar__cycle-button,
   .toolbar__button {
     width: 100%;
-  }
-
-  .toolbar select {
-    flex: 1;
   }
 }
