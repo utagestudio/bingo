@@ -58,7 +58,10 @@ export function createDefaultBoard(id: BoardId): BoardState {
 
   return {
     id,
-    name: `Board ${id.split("-")[1]}`,
+    name:
+      id === "board-1"
+        ? "マインクラフトビンゴ（サンプル）"
+        : `Board ${id.split("-")[1]}`,
     rawInput,
     items,
     layout: buildLayout(items),
