@@ -14,7 +14,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Fill missing cells with `Free Space`, biased toward the center of the board.
 - Allow random item shuffling.
 - Allow drag-and-drop rearrangement only in edit mode.
-- Allow cells to be opened/closed and highlighted through the `marked` state.
+- Allow cells to be opened/closed and highlighted through the `marked` state only outside edit mode.
 - Show reach lines when a row, column, or diagonal is one cell away from bingo.
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
@@ -79,7 +79,9 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Preserve the user-arranged layout when edits do not require a full layout rebuild.
 - Preserve `marked` state for existing items when regenerating layouts.
 - Treat Free Space cells as marked by default.
+- Treat Free Space cells as fixed: do not make them draggable, droppable, clickable to unmark, or part of shuffle.
 - Compute reach and bingo line status from the current layout instead of storing derived line state.
+- Resolve visual state priority as `bingo > reach > marked > normal`.
 - Make LocalStorage parsing defensive and versioned.
 - Avoid writing unrelated refactors while implementing product features.
 - Treat edit mode OFF as the primary OBS capture presentation state.
@@ -108,6 +110,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep animations subtle and brief so they do not distract on stream.
 - Use restrained border radii and avoid overly decorative card-heavy layouts.
 - Ensure Japanese and English labels fit without clipping.
+- Use board-size-based font steps and line clamps so long labels remain contained.
 
 ## Data Contract
 
@@ -158,13 +161,14 @@ This behavior should be covered by unit tests.
 
 Cell marking is part of the initial scope.
 
-- Clicking or tapping a cell toggles its `marked` state.
+- Clicking or tapping an item cell toggles its `marked` state only outside edit mode.
 - Marked cells are visually highlighted.
-- Free Space cells start as `marked: true`.
+- Free Space cells start as `marked: true` and cannot be unmarked.
 - Rows, columns, and the two diagonals are bingo line candidates.
 - A line is `bingo` when every cell in it is marked.
 - A line is `reach` when exactly one cell is unmarked and the line is not already bingo.
 - Derived line status should not be persisted; recompute it from `layout`.
+- Visual priority is `bingo > reach > marked > normal`.
 
 This behavior should be covered by unit tests.
 
@@ -198,6 +202,8 @@ Disabled or hidden outside edit mode:
 - Drag-and-drop
 - Layout-changing controls
 
+Cell marking is intentionally disabled in edit mode to avoid conflicts with drag-and-drop.
+
 Edit mode OFF must behave like the primary OBS display mode.
 
 Display mode requirements:
@@ -206,7 +212,7 @@ Display mode requirements:
 - Keep the board centered and large.
 - Keep app background visible for capture.
 - Keep spacing stable so OBS cropping remains reliable.
-- Provide a minimal edit-return affordance or shortcut.
+- Provide a small edit-return button. A keyboard shortcut may be added, but the button should remain available.
 
 Overlay mode is secondary and must default to display-only chrome, but browser-source LocalStorage isolation means it may start empty unless the state was created in the same browser context.
 
@@ -217,9 +223,12 @@ For logic changes, add or update unit tests for:
 - item parsing
 - board size calculation
 - center-biased Free Space placement
+- Free Space exclusion from drag-and-drop, shuffle, and unmarking
 - layout regeneration
 - marked state preservation during layout regeneration
+- item ID preservation for label edits and predictable row add/delete behavior
 - reach and bingo line detection
+- visual priority calculation for `bingo > reach > marked > normal`
 - LocalStorage encode/decode or migration helpers
 - locale initialization, persistence, and URL query override
 - theme persistence and restoration
@@ -227,10 +236,13 @@ For logic changes, add or update unit tests for:
 For UI changes, manually or automatically verify:
 
 - edit mode gates layout-changing actions
+- edit mode disables cell marking
 - cell marking works outside edit mode
+- Free Space cannot be dragged or unmarked
 - board switching works for all 3 slots
 - reload restores state
 - edit mode OFF hides editing controls and is suitable for OBS window capture
+- the small edit-return button returns from display mode to edit mode
 - display mode remains easy to crop in OBS
 - overlay URL hides controls
 - overlay still renders marked, reach, and bingo states correctly
