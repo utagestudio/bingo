@@ -69,3 +69,7 @@ Cloudflareでは、Variables and secretsに同じ名前の環境変数を設定�
 npm run build
 npx wrangler deploy
 ```
+
+## License
+
+MIT
