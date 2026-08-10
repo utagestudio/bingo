@@ -13,14 +13,53 @@ import { buildLayout } from "./layout";
 
 export const STORAGE_KEY = "obs-bingo-tool:v1";
 
+const DEFAULT_BOARD_1_LINES = [
+  "木を1スタック集める",
+  "石の道具を一式作る",
+  "鉄インゴットを入手する",
+  "防具を1部位作る",
+  "ベッドを作る",
+  "村を見つける",
+  "村人と取引する",
+  "動物を2匹繁殖させる",
+  "畑を作る",
+  "食料を1スタック用意する",
+  "洞窟を探検する",
+  "ダイヤを見つける",
+  "レッドストーンを入手する",
+  "モンスターに不意打ちされる",
+  "クリーパーに爆破される",
+  "スケルトンに撃たれる",
+  "ネザーゲートを作る",
+  "ネザーに入る",
+  "要塞または構造物を見つける",
+  "エンチャントをする",
+  "釣りをする",
+  "名札またはレアアイテムを見つける",
+  "高い場所から落ちる",
+  "今日の拠点を完成させる",
+] as const;
+
+function createDefaultItems(id: BoardId): BingoItem[] {
+  if (id !== "board-1") {
+    return [];
+  }
+
+  return DEFAULT_BOARD_1_LINES.map((label, index) => ({
+    id: `default-board-1-item-${index + 1}`,
+    label,
+  }));
+}
+
 export function createDefaultBoard(id: BoardId): BoardState {
   const now = new Date().toISOString();
-  const items: BingoItem[] = [];
+  const items = createDefaultItems(id);
+  const rawInput = items.map((item) => item.label).join("\n");
 
   return {
     id,
     name: `Board ${id.split("-")[1]}`,
-    rawInput: "",
+    rawInput,
     items,
     layout: buildLayout(items),
     updatedAt: now,
