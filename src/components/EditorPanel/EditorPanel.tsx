@@ -10,6 +10,7 @@ type EditorPanelProps = {
   onBoardNameChange: (name: string) => void;
   onRawInputChange: (rawInput: string) => void;
   onShuffle: () => void;
+  onResetBoard: () => void;
 };
 
 export function EditorPanel({
@@ -22,6 +23,7 @@ export function EditorPanel({
   onBoardNameChange,
   onRawInputChange,
   onShuffle,
+  onResetBoard,
 }: EditorPanelProps) {
   return (
     <aside className="editor-panel">
@@ -56,6 +58,13 @@ export function EditorPanel({
         </span>
         <span>{savedLabel}</span>
       </div>
+      <button
+        className="editor-panel__reset"
+        type="button"
+        onClick={onResetBoard}
+      >
+        {t("resetBoard")}
+      </button>
     </aside>
   );
 }

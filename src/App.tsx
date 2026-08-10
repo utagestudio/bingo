@@ -27,6 +27,7 @@ export function App() {
     setTheme,
     setTransparentBackground,
     setDisplayScale,
+    resetActiveBoard,
   } = useAppState();
   const t = useMemo(() => createTranslator(state.locale), [state.locale]);
   const lineStatuses = useMemo(
@@ -115,6 +116,7 @@ export function App() {
               onBoardNameChange={updateBoardName}
               onRawInputChange={updateRawInput}
               onShuffle={shuffleBoard}
+              onResetBoard={resetActiveBoard}
             />
           ) : null}
         </div>

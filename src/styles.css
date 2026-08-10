@@ -403,6 +403,18 @@ input:disabled {
   text-align: center;
 }
 
+.editor-panel__reset {
+  min-height: 42px;
+  margin-top: auto;
+  border: 1px solid color-mix(in srgb, var(--danger), var(--border) 30%);
+  border-radius: 6px;
+  padding: 0 14px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger), transparent 92%);
+  font-weight: 800;
+  text-align: center;
+}
+
 .editor-panel__meta {
   display: flex;
   flex-wrap: wrap;

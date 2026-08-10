@@ -22,7 +22,8 @@ export type TranslationKey =
   | "displaySize"
   | "compact"
   | "standard"
-  | "fit";
+  | "fit"
+  | "resetBoard";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -48,6 +49,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     compact: "小さめ",
     standard: "通常",
     fit: "ブラウザ合わせ",
+    resetBoard: "初期状態に戻す",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -72,6 +74,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     compact: "Compact",
     standard: "Standard",
     fit: "Fit browser",
+    resetBoard: "Reset board",
   },
 };
 

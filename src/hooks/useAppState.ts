@@ -18,6 +18,7 @@ import {
 } from "../lib/layout";
 import { parseQuery } from "../lib/query";
 import {
+  createDefaultBoard,
   createDefaultState,
   getInitialLocale,
   loadState,
@@ -208,6 +209,16 @@ export function useAppState() {
     );
   }, []);
 
+  const resetActiveBoard = useCallback(() => {
+    setState((current) => ({
+      ...current,
+      boards: {
+        ...current.boards,
+        [current.activeBoardId]: createDefaultBoard(current.activeBoardId),
+      },
+    }));
+  }, []);
+
   return {
     state,
     activeBoard,
@@ -225,5 +236,6 @@ export function useAppState() {
     setTheme,
     setTransparentBackground,
     setDisplayScale,
+    resetActiveBoard,
   };
 }
