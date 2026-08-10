@@ -39,8 +39,33 @@ input:disabled {
 }
 
 .display-shell {
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --cell: #ffffff;
+  --cell-text: #111827;
+  --free-cell: #e0f2fe;
+  --marked: #fde68a;
+  --reach: #38bdf8;
+  --bingo: #22c55e;
+  --danger: #ef4444;
+  --muted-text: #64748b;
+  --border: #cbd5e1;
   min-height: 100vh;
   background: var(--background);
+}
+
+.display-shell[data-theme="dark"] {
+  --background: #111827;
+  --surface: #1f2937;
+  --cell: #0f172a;
+  --cell-text: #f8fafc;
+  --free-cell: #1e3a8a;
+  --marked: #facc15;
+  --reach: #38bdf8;
+  --bingo: #22c55e;
+  --danger: #f87171;
+  --muted-text: #cbd5e1;
+  --border: #475569;
 }
 
 .display-shell[data-transparent="true"] {

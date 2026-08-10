@@ -53,6 +53,7 @@ export function App() {
       editMode={visibleEditMode}
       overlayMode={overlayMode}
       transparentBackground={activeBoard.appearance.transparentBackground}
+      theme={activeBoard.appearance.theme}
       onReturnToEdit={() => setEditMode(true)}
       returnLabel={t("returnToEdit")}
     >
