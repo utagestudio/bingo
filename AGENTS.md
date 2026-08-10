@@ -20,8 +20,8 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Support Japanese and English UI text.
 - Support light and dark themes, with light as the default.
 - Support compact, standard, and fit display sizes for OBS capture, stored per board.
-- Include a localized Minecraft bingo sample as the default Board 1 state.
-- Keep Board 1 default title localized as `マインクラフトビンゴ（サンプル）` or `Minecraft Bingo (Sample)`.
+- Include a localized Faaast Penguin bingo sample as the default Board 1 state.
+- Keep Board 1 default title localized as `Faaast Penguin （サンプル）` or `Faaast Penguin (Sample)`.
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
@@ -180,7 +180,7 @@ This behavior should be covered by unit tests.
 
 Default boards:
 
-- Board 1 should initialize as a localized Minecraft bingo sample with 24 item cells and one centered Free Space.
+- Board 1 should initialize as a localized Faaast Penguin bingo sample with 24 item cells and one centered Free Space.
 - Board 2 and Board 3 should initialize as empty boards.
 - Resetting the active board should recreate that board's default for the current locale.
 - Existing saved LocalStorage should take precedence over changed defaults until the user explicitly resets.
