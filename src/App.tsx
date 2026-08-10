@@ -3,6 +3,7 @@ import { BingoBoard } from "./components/BingoBoard/BingoBoard";
 import { BoardSwitcher } from "./components/BoardSwitcher/BoardSwitcher";
 import { DisplayShell } from "./components/DisplayShell/DisplayShell";
 import { EditorPanel } from "./components/EditorPanel/EditorPanel";
+import { Footer } from "./components/Footer/Footer";
 import { Toolbar } from "./components/Toolbar/Toolbar";
 import { createTranslator } from "./lib/i18n";
 import { getCellVisualStatuses, getLineStatuses } from "./lib/lineStatus";
@@ -113,6 +114,7 @@ export function App() {
             />
           ) : null}
         </div>
+        <Footer />
       </div>
     </DisplayShell>
   );
