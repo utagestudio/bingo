@@ -40,6 +40,14 @@ OBSブラウザソース向けに `?view=overlay` も利用できますが、OBS
 /?view=overlay&transparent=1
 ```
 
+## OGP
+
+SNSシェア用のOGP画像は `public/ogp.png` に配置しています。
+
+```text
+https://achievement-bingo.utage.games/ogp.png
+```
+
 ## 検証
 
 ```bash

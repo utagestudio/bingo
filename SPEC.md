@@ -503,6 +503,23 @@ faviconは、Achievement Bingoがゲーム目標をビンゴ形式で達成し�
 - 色はライトテーマと整合する明るい背景、濃い枠線、黄色の開封済みセル、緑の達成チェックを使う。
 - faviconはアプリの機能を示すブランド要素として扱い、将来PNGやICOが必要になった場合もこのSVGを原本にする。
 
+### OGP
+
+SNSシェア時の表示を安定させるため、`index.html` にOGPとTwitterカードのmetaタグを設定する。
+
+- `og:site_name`: `Achievement Bingo`
+- `og:title`: `Achievement Bingo`
+- `og:description`: `ゲームの目標をビンゴにして、達成状況を配信画面に表示できるOBS向けWebツール。`
+- `og:type`: `website`
+- `og:url`: `https://achievement-bingo.utage.games/`
+- `og:image`: `https://achievement-bingo.utage.games/ogp.png`
+- `og:image:width`: `1200`
+- `og:image:height`: `630`
+- `og:locale`: `ja_JP`
+- `twitter:card`: `summary_large_image`
+- OGP画像は `public/ogp.png` に配置する。
+- OGP画像は1200 x 630pxとし、左にタイトルと日本語説明、右にビンゴ盤面と達成チェックのビジュアルを置く。
+
 ### 盤面デザイン
 
 - 盤面は正方形に近い比率で表示する。

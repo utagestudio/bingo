@@ -30,6 +30,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
 - Include a footer with `©UTAGE.GAMES` and a localized feedback link.
 - Optionally install Google Analytics only when `VITE_GA_MEASUREMENT_ID` is provided at build time.
+- Include Japanese OGP metadata and `public/ogp.png` for SNS sharing.
 - Keep `?view=overlay` as a secondary browser-source-oriented mode, with clear awareness that LocalStorage may not be shared with OBS browser sources.
 - Target Cloudflare deployment.
 
