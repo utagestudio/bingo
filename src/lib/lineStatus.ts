@@ -91,7 +91,10 @@ export function getCellVisualStatuses(
     }
 
     for (const cellId of lineStatus.cellIds) {
-      if (visualStatuses[cellId] !== "bingo") {
+      const cell = layout.find((candidate) => candidate.id === cellId);
+
+      // リーチ時は「あと1つ」の未開封セルだけを強調し、開封済みセルはmarked表示を保つ。
+      if (cell && !cell.marked && visualStatuses[cellId] !== "bingo") {
         visualStatuses[cellId] = "reach";
       }
     }

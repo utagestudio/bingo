@@ -49,4 +49,21 @@ describe("lineStatus", () => {
     expect(visualStatuses["cell-item-1"]).toBe("bingo");
     expect(visualStatuses["cell-item-5"]).toBe("reach");
   });
+
+  it("keeps marked cells visually distinct from the unmarked reach target", () => {
+    const items = Array.from({ length: 9 }, (_, index) => ({
+      id: `item-${index + 1}`,
+      label: `Item ${index + 1}`,
+    }));
+    const layout = mark(buildLayout(items), ["cell-item-1", "cell-item-2"]);
+    const lines = getLineStatuses(layout);
+    const visualStatuses = getCellVisualStatuses(layout, lines);
+
+    expect(lines).toContainEqual(
+      expect.objectContaining({ kind: "row", index: 0, status: "reach" }),
+    );
+    expect(visualStatuses["cell-item-1"]).toBe("marked");
+    expect(visualStatuses["cell-item-2"]).toBe("marked");
+    expect(visualStatuses["cell-item-3"]).toBe("reach");
+  });
 });
