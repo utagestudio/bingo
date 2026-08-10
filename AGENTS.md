@@ -119,6 +119,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
 - Place display size and display mode together as a right-aligned capture/display group, ordered as display size first and display mode second.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
+- Include a short guide in the editor panel explaining that display mode is used for bingo play and edit mode allows drag rearrangement.
 - Keep the display-mode edit-return button small and positioned at the top right.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.

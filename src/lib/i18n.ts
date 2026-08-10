@@ -24,7 +24,10 @@ export type TranslationKey =
   | "standard"
   | "fit"
   | "resetBoard"
-  | "clearMarks";
+  | "clearMarks"
+  | "quickGuideTitle"
+  | "quickGuideDisplayMode"
+  | "quickGuideDrag";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -52,6 +55,11 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     fit: "ブラウザ合わせ",
     resetBoard: "初期状態に戻す",
     clearMarks: "選択状態を全解除する",
+    quickGuideTitle: "使い方",
+    quickGuideDisplayMode:
+      "ビンゴとして使うときは、上部の表示モードボタンで表示モードに切り替えます。",
+    quickGuideDrag:
+      "編集モードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -78,6 +86,11 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     fit: "Fit browser",
     resetBoard: "Reset board",
     clearMarks: "Clear all selections",
+    quickGuideTitle: "Quick guide",
+    quickGuideDisplayMode:
+      "To use the board as bingo, switch to display mode with the button in the top bar.",
+    quickGuideDrag:
+      "In edit mode, drag board cells to rearrange their positions.",
   },
 };
 

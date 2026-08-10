@@ -441,6 +441,30 @@ input:disabled {
   font-weight: 700;
 }
 
+.editor-panel__guide {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--border), transparent 24%);
+  border-radius: 6px;
+  color: var(--muted-text);
+  background: color-mix(in srgb, var(--surface), transparent 36%);
+}
+
+.editor-panel__guide h2 {
+  margin: 0;
+  color: var(--cell-text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.editor-panel__guide p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
 .return-edit-button {
   position: fixed;
   right: 12px;

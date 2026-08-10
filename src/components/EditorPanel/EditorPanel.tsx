@@ -60,6 +60,11 @@ export function EditorPanel({
         </span>
         <span>{savedLabel}</span>
       </div>
+      <section className="editor-panel__guide" aria-labelledby="quick-guide-title">
+        <h2 id="quick-guide-title">{t("quickGuideTitle")}</h2>
+        <p>{t("quickGuideDisplayMode")}</p>
+        <p>{t("quickGuideDrag")}</p>
+      </section>
       <div className="editor-panel__bottom-actions">
         <button
           className="editor-panel__secondary-action"
