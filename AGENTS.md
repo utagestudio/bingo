@@ -18,6 +18,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Show reach lines when a row, column, or diagonal is one cell away from bingo.
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
+- Support light and dark themes, with light as the default.
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
@@ -87,12 +88,26 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep overlay mode as a secondary path for browser sources, and do not assume it can read LocalStorage written by a normal browser profile.
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
+- Store theme per board and do not let theme changes alter item text, layout, or marked state.
 - Prefer small, focused modules over large files.
 - Avoid putting board generation, storage migration, line detection, and translation dictionaries directly in React components.
 - Add concise Japanese comments where the intent may not be obvious to the project owner.
 - Comments should explain why the code exists or which product rule it protects, not restate simple syntax.
 - Prefer accessible HTML controls and clear button labels.
 - Keep CSS responsive across 1920x1080, 1280x720, and mobile widths.
+
+## Design Principles
+
+- Prioritize readability on stream over decoration.
+- Default to a light-leaning visual theme with clear borders and dark readable text.
+- Provide a dark theme for darker stream layouts while preserving clear state contrast.
+- Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
+- Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
+- Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
+- Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
+- Keep animations subtle and brief so they do not distract on stream.
+- Use restrained border radii and avoid overly decorative card-heavy layouts.
+- Ensure Japanese and English labels fit without clipping.
 
 ## Data Contract
 
@@ -207,6 +222,7 @@ For logic changes, add or update unit tests for:
 - reach and bingo line detection
 - LocalStorage encode/decode or migration helpers
 - locale initialization, persistence, and URL query override
+- theme persistence and restoration
 
 For UI changes, manually or automatically verify:
 
@@ -219,6 +235,7 @@ For UI changes, manually or automatically verify:
 - overlay URL hides controls
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
+- light and dark themes can be switched and display mode updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:
