@@ -20,10 +20,15 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Support Japanese and English UI text.
 - Support light and dark themes, with light as the default.
 - Support compact, standard, and fit display sizes for OBS capture, stored per board.
+- Include a localized Minecraft bingo sample as the default Board 1 state.
+- Keep Board 1 default title localized as `マインクラフトビンゴ（サンプル）` or `Minecraft Bingo (Sample)`.
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
 - Support a display mode for OBS window capture where editing UI is hidden.
+- Provide a clear-all-selections action that unmarks item cells while keeping Free Space marked.
+- Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
+- Include a footer with `©UTAGE.GAMES` and a localized feedback link.
 - Keep `?view=overlay` as a secondary browser-source-oriented mode, with clear awareness that LocalStorage may not be shared with OBS browser sources.
 - Target Cloudflare deployment.
 
@@ -93,6 +98,9 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
 - Store theme per board and do not let theme changes alter item text, layout, or marked state.
 - Store display size per board and do not let size changes alter item text, layout, or marked state.
+- When resetting a board, use the current locale for built-in sample titles and sample item labels.
+- Do not auto-overwrite valid existing LocalStorage data when defaults change; apply new defaults through explicit reset or fresh storage only.
+- Keep the clear-all-selections action scoped to item cells; Free Space must remain marked.
 - Prefer small, focused modules over large files.
 - Avoid putting board generation, storage migration, line detection, and translation dictionaries directly in React components.
 - Add concise Japanese comments where the intent may not be obvious to the project owner.
@@ -108,6 +116,12 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
 - Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
+- Place theme, language, and transparent background controls as a separate appearance/environment group.
+- Place display size and display mode together as a right-aligned capture/display group, ordered as display size first and display mode second.
+- Place the shuffle action near the item input area because it acts on entered bingo items.
+- Keep the display-mode edit-return button small and positioned at the top right.
+- Keep destructive or broad actions visually subdued, especially reset-current-board.
+- Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
 - Keep animations subtle and brief so they do not distract on stream.
@@ -160,6 +174,13 @@ Free Space placement:
 
 This behavior should be covered by unit tests.
 
+Default boards:
+
+- Board 1 should initialize as a localized Minecraft bingo sample with 24 item cells and one centered Free Space.
+- Board 2 and Board 3 should initialize as empty boards.
+- Resetting the active board should recreate that board's default for the current locale.
+- Existing saved LocalStorage should take precedence over changed defaults until the user explicitly resets.
+
 ## Marking, Reach, and Bingo Rules
 
 Cell marking is part of the initial scope.
@@ -185,6 +206,7 @@ Japanese and English are part of the initial scope.
 - Allow URL query overrides with `?lang=ja` and `?lang=en`.
 - Store the selected locale in LocalStorage.
 - Do not translate user-entered board item text.
+- Built-in sample board titles and sample item labels are system-provided content and should be localized.
 
 ## Edit Mode Rules
 
@@ -215,9 +237,18 @@ Display mode requirements:
 - Keep the board centered and large.
 - Keep app background visible for capture.
 - Keep spacing stable so OBS cropping remains reliable.
-- Provide a small edit-return button. A keyboard shortcut may be added, but the button should remain available.
+- Provide a small edit-return button at the top right. A keyboard shortcut may be added, but the button should remain available.
 
 Overlay mode is secondary and must default to display-only chrome, but browser-source LocalStorage isolation means it may start empty unless the state was created in the same browser context.
+
+## Footer and Links
+
+- Show a subdued footer in edit mode.
+- Link `©UTAGE.GAMES` to `https://utage.games/`.
+- Link feedback to `https://github.com/utagestudio/bingo/issues`.
+- Use `バグ報告・機能要望` for Japanese feedback text.
+- Use `Bug Reports & Feature Requests` for English feedback text.
+- Hide or minimize footer presence in display mode so OBS capture stays clean.
 
 ## Testing Expectations
 
@@ -275,6 +306,8 @@ Do not add Cloudflare KV, D1, Durable Objects, or Workers API routes unless the 
 ## Documentation
 
 Keep [SPEC.md](./SPEC.md) aligned with product behavior. If implementation decisions differ from the current spec, update the spec in the same change.
+
+When a product requirement changes or a new behavior is added, update [SPEC.md](./SPEC.md) in the same small unit of work. If the change affects future development rules, implementation conventions, commit policy, or handoff context, update [AGENTS.md](./AGENTS.md) as well.
 
 When adding setup commands, deployment commands, or environment requirements, document them in `README.md` once a runnable app exists.
 
