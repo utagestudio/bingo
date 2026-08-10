@@ -21,6 +21,10 @@ describe("storage defaults", () => {
     expect(board.name).toBe("Faaast Penguin (Sample)");
     expect(board.items).toHaveLength(24);
     expect(board.rawInput).toContain("Finish 1st in a Tour");
+    expect(board.rawInput).toContain(
+      "Use your Ultimate Ride 3 times in one Activity",
+    );
+    expect(board.rawInput).toContain("Finish without using your Ultimate Ride");
     expect(board.rawInput).toContain("Finish without collecting 10 sardine cans");
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
   });

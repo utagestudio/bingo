@@ -181,6 +181,7 @@ This behavior should be covered by unit tests.
 Default boards:
 
 - Board 1 should initialize as a localized Faaast Penguin bingo sample with 24 item cells and one centered Free Space.
+- In the English Faaast Penguin sample, translate Japanese `スペシャル` as `Ultimate Ride`.
 - Board 2 and Board 3 should initialize as empty boards.
 - Resetting the active board should recreate that board's default for the current locale.
 - Existing saved LocalStorage should take precedence over changed defaults until the user explicitly resets.
