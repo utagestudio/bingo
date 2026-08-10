@@ -378,6 +378,9 @@ input:disabled {
 }
 
 .site-footer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
   width: min(100%, 1400px);
   margin: 16px auto 0;
   color: var(--muted-text);
