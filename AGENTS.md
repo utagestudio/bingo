@@ -25,7 +25,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
-- Support a display mode for OBS window capture where editing UI is hidden.
+- Support a play mode for bingo operation and OBS window capture where editing UI is hidden.
 - Provide a clear-all-selections action that unmarks item cells while keeping Free Space marked.
 - Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
 - Include a footer with `©UTAGE.GAMES` and a localized feedback link.
@@ -92,8 +92,8 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Make LocalStorage parsing defensive and versioned.
 - Avoid writing unrelated refactors while implementing product features.
 - Treat edit mode OFF as the primary OBS capture presentation state.
-- Keep display mode visually clean: no editing controls should appear except a minimal way to return to editing.
-- Design display mode for OBS window capture: stable board position, stable outer spacing, app-owned background, and easy OBS cropping.
+- Keep play mode visually clean: no editing controls should appear except a minimal way to return to editing.
+- Design play mode for OBS window capture: stable board position, stable outer spacing, app-owned background, and easy OBS cropping.
 - Keep overlay mode as a secondary path for browser sources, and do not assume it can read LocalStorage written by a normal browser profile.
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
@@ -114,15 +114,15 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Prioritize readability on stream over decoration.
 - Default to a light-leaning visual theme with clear borders and dark readable text.
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
-- Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
+- Treat play mode as the main bingo operation and OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
 - Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
 - Use standard as the default display size for new or reset boards.
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
-- Place display size and display mode together as a right-aligned capture/display group, ordered as display size first and display mode second.
+- Place display size and the play-mode switch together as a right-aligned capture/play group, ordered as display size first and the play-mode switch second.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
-- Include a short guide in the editor panel explaining that display mode is used for bingo play and edit mode allows drag rearrangement.
-- Keep the display-mode edit-return button small and positioned at the top right.
+- Include a short guide in the editor panel explaining that play mode is used for bingo play and OBS capture, and edit mode allows drag rearrangement.
+- Keep the play-mode edit-return button small and positioned at the top right.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
@@ -232,9 +232,9 @@ Disabled or hidden outside edit mode:
 
 Cell marking is intentionally disabled in edit mode to avoid conflicts with drag-and-drop.
 
-Edit mode OFF must behave like the primary OBS display mode.
+Edit mode OFF must behave like the primary play mode for bingo operation and OBS capture.
 
-Display mode requirements:
+Play mode requirements:
 
 - Hide the editor panel and layout-changing controls.
 - Keep the board centered and large.
@@ -251,7 +251,7 @@ Overlay mode is secondary and must default to display-only chrome, but browser-s
 - Link feedback to `https://github.com/utagestudio/bingo/issues`.
 - Use `バグ報告・機能要望` for Japanese feedback text.
 - Use `Bug Reports & Feature Requests` for English feedback text.
-- Hide or minimize footer presence in display mode so OBS capture stays clean.
+- Hide or minimize footer presence in play mode so OBS capture stays clean.
 
 ## Testing Expectations
 
@@ -280,13 +280,13 @@ For UI changes, manually or automatically verify:
 - board switching works for all 3 slots
 - reload restores state
 - edit mode OFF hides editing controls and is suitable for OBS window capture
-- the small edit-return button returns from display mode to edit mode
-- display mode remains easy to crop in OBS
+- the small edit-return button returns from play mode to edit mode
+- play mode remains easy to crop in OBS
 - overlay URL hides controls
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
-- light and dark themes can be switched and display mode updates immediately
-- compact, standard, and fit display sizes can be switched and display mode updates immediately
+- light and dark themes can be switched and play mode updates immediately
+- compact, standard, and fit display sizes can be switched and play mode updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:

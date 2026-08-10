@@ -33,7 +33,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
     appTitle: "Achievement Bingo",
     editMode: "編集モード",
-    displayMode: "表示モード",
+    displayMode: "プレイモードへ切り替え",
     items: "項目",
     itemsPlaceholder: "1行に1項目ずつ入力",
     shuffle: "ビンゴのセルの位置をシャッフルする",
@@ -57,14 +57,14 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     clearMarks: "選択状態を全解除する",
     quickGuideTitle: "使い方",
     quickGuideDisplayMode:
-      "ビンゴとして使うときは、上部の表示モードボタンで表示モードに切り替えます。",
+      "ビンゴとして使うときやOBSに取り込むときは、上部の「プレイモードへ切り替え」でプレイモードにします。",
     quickGuideDrag:
       "編集モードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
   en: {
     appTitle: "Achievement Bingo",
     editMode: "Edit mode",
-    displayMode: "Display mode",
+    displayMode: "Switch to Play Mode",
     items: "Items",
     itemsPlaceholder: "Enter one item per line",
     shuffle: "Shuffle bingo cell positions",
@@ -88,7 +88,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     clearMarks: "Clear all selections",
     quickGuideTitle: "Quick guide",
     quickGuideDisplayMode:
-      "To use the board as bingo, switch to display mode with the button in the top bar.",
+      "To play bingo or capture it in OBS, use Switch to Play Mode in the top bar.",
     quickGuideDrag:
       "In edit mode, drag board cells to rearrange their positions.",
   },
