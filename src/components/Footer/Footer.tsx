@@ -10,7 +10,7 @@ export function Footer() {
         target="_blank"
         rel="noreferrer"
       >
-        Issues
+        バグ報告・機能要望
       </a>
     </footer>
   );
