@@ -40,6 +40,20 @@ export function Toolbar({
       >
         {editMode ? t("displayMode") : t("editMode")}
       </button>
+      <label className="toolbar__field">
+        <span>{t("displaySize")}</span>
+        <select
+          value={displayScale}
+          disabled={!editMode}
+          onChange={(event) =>
+            onDisplayScaleChange(event.target.value as DisplayScale)
+          }
+        >
+          <option value="compact">{t("compact")}</option>
+          <option value="standard">{t("standard")}</option>
+          <option value="fit">{t("fit")}</option>
+        </select>
+      </label>
       <button
         className="toolbar__button"
         type="button"
@@ -57,20 +71,6 @@ export function Toolbar({
         >
           <option value="light">{t("light")}</option>
           <option value="dark">{t("dark")}</option>
-        </select>
-      </label>
-      <label className="toolbar__field">
-        <span>{t("displaySize")}</span>
-        <select
-          value={displayScale}
-          disabled={!editMode}
-          onChange={(event) =>
-            onDisplayScaleChange(event.target.value as DisplayScale)
-          }
-        >
-          <option value="compact">{t("compact")}</option>
-          <option value="standard">{t("standard")}</option>
-          <option value="fit">{t("fit")}</option>
         </select>
       </label>
       <label className="toolbar__field">
