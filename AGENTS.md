@@ -281,3 +281,5 @@ When making commits for this project:
 - Add the detailed commit body in Japanese.
 - Do not insert unnecessary blank lines in the commit body.
 - Keep the Japanese body concise but specific enough to explain what changed and why.
+- During implementation, commit in small units whenever practical.
+- For implementation work, commits may be created as progress is made without waiting for explicit user confirmation each time.
