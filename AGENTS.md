@@ -133,6 +133,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Use restrained border radii and avoid overly decorative card-heavy layouts.
 - Ensure Japanese and English labels fit without clipping.
 - Keep line-height generous enough that English descenders such as `g` and `y` are not clipped in titles, controls, or board cells.
+- Avoid board-cell text clipping techniques that cut tightly at the final line, such as `-webkit-line-clamp`; prefer max-height with explicit bottom breathing room.
 - Use board-size-based font steps and line clamps so long labels remain contained.
 
 ## Data Contract
