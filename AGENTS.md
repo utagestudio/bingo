@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository contains an OBS-friendly web bingo board tool. The app is intended to run as a client-side web application, be captured primarily by OBS window capture from a normal browser window, and deploy cleanly to Cloudflare.
+This repository contains Achievement Bing, an OBS-friendly web bingo board tool for tracking game goals. The app is intended to run as a client-side web application, be captured primarily by OBS window capture from a normal browser window, and deploy cleanly to Cloudflare.
 
 Primary requirements are documented in [SPEC.md](./SPEC.md).
 

@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "obs-bingo-tool",
+  "name": "achievement-bing",
   "compatibility_date": "2026-08-10",
   "assets": {
     "directory": "./dist",
