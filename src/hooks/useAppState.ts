@@ -222,6 +222,18 @@ export function useAppState() {
     }));
   }, []);
 
+  const clearActiveBoardMarks = useCallback(() => {
+    setState((current) =>
+      withUpdatedBoard(current, current.activeBoardId, (board) => ({
+        ...board,
+        layout: board.layout.map((cell) => ({
+          ...cell,
+          marked: cell.type === "free",
+        })),
+      })),
+    );
+  }, []);
+
   return {
     state,
     activeBoard,
@@ -239,6 +251,7 @@ export function useAppState() {
     setTheme,
     setTransparentBackground,
     setDisplayScale,
+    clearActiveBoardMarks,
     resetActiveBoard,
   };
 }

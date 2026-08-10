@@ -403,9 +403,15 @@ input:disabled {
   text-align: center;
 }
 
+.editor-panel__bottom-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.editor-panel__secondary-action,
 .editor-panel__reset {
   min-height: 42px;
-  margin-top: auto;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0 14px;
@@ -413,6 +419,11 @@ input:disabled {
   background: transparent;
   font-weight: 800;
   text-align: center;
+}
+
+.editor-panel__secondary-action:hover {
+  color: var(--cell-text);
+  background: color-mix(in srgb, var(--surface), var(--border) 18%);
 }
 
 .editor-panel__reset:hover {

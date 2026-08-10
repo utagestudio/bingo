@@ -27,6 +27,7 @@ export function App() {
     setTheme,
     setTransparentBackground,
     setDisplayScale,
+    clearActiveBoardMarks,
     resetActiveBoard,
   } = useAppState();
   const t = useMemo(() => createTranslator(state.locale), [state.locale]);
@@ -116,6 +117,7 @@ export function App() {
               onBoardNameChange={updateBoardName}
               onRawInputChange={updateRawInput}
               onShuffle={shuffleBoard}
+              onClearMarks={clearActiveBoardMarks}
               onResetBoard={resetActiveBoard}
             />
           ) : null}

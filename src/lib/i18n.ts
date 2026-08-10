@@ -23,7 +23,8 @@ export type TranslationKey =
   | "compact"
   | "standard"
   | "fit"
-  | "resetBoard";
+  | "resetBoard"
+  | "clearMarks";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -50,6 +51,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     standard: "通常",
     fit: "ブラウザ合わせ",
     resetBoard: "初期状態に戻す",
+    clearMarks: "選択状態を全解除する",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -75,6 +77,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     standard: "Standard",
     fit: "Fit browser",
     resetBoard: "Reset board",
+    clearMarks: "Clear all selections",
   },
 };
 
