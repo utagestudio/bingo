@@ -47,6 +47,20 @@ npm test
 npm run build
 ```
 
+## Google Analytics
+
+GA4の測定IDを環境変数 `VITE_GA_MEASUREMENT_ID` に設定した場合だけ、Google Analyticsタグをビルド成果物へ埋め込みます。未設定の場合はGAタグを出力せず、外部通信も発生しません。
+
+ローカルでは `.env` に設定できます。
+
+```text
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+`.env.example` も同じキー名のサンプルとして用意しています。
+
+Cloudflareでは、Variables and secretsに同じ名前の環境変数を設定してからビルドしてください。
+
 ## Cloudflare
 
 静的ビルド成果物は `dist/` に出力されます。`wrangler.jsonc` はCloudflare Workers Static Assets向けに設定しています。

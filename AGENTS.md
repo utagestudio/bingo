@@ -29,6 +29,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Provide a clear-all-selections action that unmarks item cells while keeping Free Space marked.
 - Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
 - Include a footer with `©UTAGE.GAMES` and a localized feedback link.
+- Optionally install Google Analytics only when `VITE_GA_MEASUREMENT_ID` is provided at build time.
 - Keep `?view=overlay` as a secondary browser-source-oriented mode, with clear awareness that LocalStorage may not be shared with OBS browser sources.
 - Target Cloudflare deployment.
 
@@ -301,6 +302,8 @@ If tests or build commands are not yet available, say so explicitly in the final
 The app should build to static assets, normally `dist/`.
 
 If using Workers Static Assets, configure Wrangler so the built static directory is served. For SPA routing, set the assets not-found behavior to serve `index.html`.
+
+For Google Analytics, use the build-time variable `VITE_GA_MEASUREMENT_ID`. In Cloudflare, configure it through Variables and secrets for the build environment. Do not hard-code GA measurement IDs in source files.
 
 Do not add Cloudflare KV, D1, Durable Objects, or Workers API routes unless the user asks for shared online persistence or server-side features.
 
