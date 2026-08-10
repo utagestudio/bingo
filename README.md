@@ -1,4 +1,4 @@
-# Achievement Bing
+# Achievement Bingo
 
 OBSのウィンドウキャプチャで取り込むことを想定した、クライアント完結のWebビンゴツールです。
 

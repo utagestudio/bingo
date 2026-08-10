@@ -31,7 +31,7 @@ export type TranslationKey =
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
-    appTitle: "Achievement Bing",
+    appTitle: "Achievement Bingo",
     editMode: "編集モード",
     displayMode: "表示モード",
     items: "項目",
@@ -62,7 +62,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
       "編集モードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
   en: {
-    appTitle: "Achievement Bing",
+    appTitle: "Achievement Bingo",
     editMode: "Edit mode",
     displayMode: "Display mode",
     items: "Items",

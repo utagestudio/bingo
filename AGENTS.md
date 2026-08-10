@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository contains Achievement Bing, an OBS-friendly web bingo board tool for tracking game goals. The app is intended to run as a client-side web application, be captured primarily by OBS window capture from a normal browser window, and deploy cleanly to Cloudflare.
+This repository contains Achievement Bingo, an OBS-friendly web bingo board tool for tracking game goals. The app is intended to run as a client-side web application, be captured primarily by OBS window capture from a normal browser window, and deploy cleanly to Cloudflare.
 
 Primary requirements are documented in [SPEC.md](./SPEC.md).
 
@@ -135,7 +135,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 Use this LocalStorage key unless deliberately migrating:
 
 ```text
-achievement-bing:v1
+achievement-bingo:v1
 ```
 
 Expected shape:

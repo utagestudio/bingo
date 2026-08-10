@@ -1,8 +1,8 @@
-# Achievement Bing 仕様設計
+# Achievement Bingo 仕様設計
 
 ## 目的
 
-Achievement Bingは、OBSのウィンドウキャプチャで取り込んで表示できる、ゲーム内の目標達成をビンゴ形式で見せる配信向けWebツールとする。ブラウザだけで完結し、入力項目、盤面レイアウト、保存スロットをLocalStorageへ自動保存して、リロード後も同じ状態を復元する。
+Achievement Bingoは、OBSのウィンドウキャプチャで取り込んで表示できる、ゲーム内の目標達成をビンゴ形式で見せる配信向けWebツールとする。ブラウザだけで完結し、入力項目、盤面レイアウト、保存スロットをLocalStorageへ自動保存して、リロード後も同じ状態を復元する。
 
 ## 想定ユーザーと利用環境
 
@@ -294,7 +294,7 @@ reachLines = lines where marked count is boardSize - 1
 ### LocalStorageキー
 
 ```text
-achievement-bing:v1
+achievement-bingo:v1
 ```
 
 ### 保存データ
