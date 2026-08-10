@@ -517,6 +517,16 @@ input:disabled {
   line-height: 1.55;
 }
 
+.editor-panel__guide-emphasis {
+  display: inline-block;
+  margin: 0 0.24em;
+  border-radius: 4px;
+  padding: 0 0.32em;
+  color: var(--cell-text);
+  background: color-mix(in srgb, var(--accent), transparent 76%);
+  font-weight: 900;
+}
+
 .return-edit-button {
   position: fixed;
   right: 12px;

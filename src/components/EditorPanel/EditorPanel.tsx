@@ -62,7 +62,13 @@ export function EditorPanel({
       </div>
       <section className="editor-panel__guide" aria-labelledby="quick-guide-title">
         <h2 id="quick-guide-title">{t("quickGuideTitle")}</h2>
-        <p>{t("quickGuideDisplayMode")}</p>
+        <p>
+          {t("quickGuideDisplayModeBefore")}
+          <strong className="editor-panel__guide-emphasis">
+            {t("displayMode")}
+          </strong>
+          {t("quickGuideDisplayModeAfter")}
+        </p>
         <p>{t("quickGuideDrag")}</p>
       </section>
       <div className="editor-panel__bottom-actions">

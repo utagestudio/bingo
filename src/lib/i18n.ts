@@ -26,7 +26,8 @@ export type TranslationKey =
   | "resetBoard"
   | "clearMarks"
   | "quickGuideTitle"
-  | "quickGuideDisplayMode"
+  | "quickGuideDisplayModeBefore"
+  | "quickGuideDisplayModeAfter"
   | "quickGuideDrag";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
@@ -56,8 +57,9 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     resetBoard: "初期状態に戻す",
     clearMarks: "選択状態を全解除する",
     quickGuideTitle: "使い方",
-    quickGuideDisplayMode:
-      "ビンゴとして使うときやOBSに取り込むときは、上部の「プレイモードへ切り替え」でプレイモードにします。",
+    quickGuideDisplayModeBefore:
+      "ビンゴとして使うときやOBSに取り込むときは、上部の",
+    quickGuideDisplayModeAfter: "でプレイモードにします。",
     quickGuideDrag:
       "編集モードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
@@ -87,8 +89,9 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     resetBoard: "Reset board",
     clearMarks: "Clear all selections",
     quickGuideTitle: "Quick guide",
-    quickGuideDisplayMode:
-      "To play bingo or capture it in OBS, use Switch to Play Mode in the top bar.",
+    quickGuideDisplayModeBefore:
+      "To play bingo or capture it in OBS, use",
+    quickGuideDisplayModeAfter: "in the top bar.",
     quickGuideDrag:
       "In edit mode, drag board cells to rearrange their positions.",
   },
