@@ -132,6 +132,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep animations subtle and brief so they do not distract on stream.
 - Use restrained border radii and avoid overly decorative card-heavy layouts.
 - Ensure Japanese and English labels fit without clipping.
+- Keep line-height generous enough that English descenders such as `g` and `y` are not clipped in titles, controls, or board cells.
 - Use board-size-based font steps and line clamps so long labels remain contained.
 
 ## Data Contract
