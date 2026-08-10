@@ -406,13 +406,19 @@ input:disabled {
 .editor-panel__reset {
   min-height: 42px;
   margin-top: auto;
-  border: 1px solid color-mix(in srgb, var(--danger), var(--border) 30%);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0 14px;
-  color: var(--danger);
-  background: color-mix(in srgb, var(--danger), transparent 92%);
+  color: var(--muted-text);
+  background: transparent;
   font-weight: 800;
   text-align: center;
+}
+
+.editor-panel__reset:hover {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger), var(--border) 45%);
+  background: color-mix(in srgb, var(--danger), transparent 96%);
 }
 
 .editor-panel__meta {
