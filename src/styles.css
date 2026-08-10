@@ -240,10 +240,10 @@ input:disabled {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 4px;
-  padding: 3px;
-  border: 1px solid var(--border);
+  padding: 2px;
+  border: 1px solid transparent;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--surface), var(--background) 16%);
+  background: color-mix(in srgb, var(--surface), transparent 54%);
 }
 
 .toolbar__option-button {
@@ -263,10 +263,10 @@ input:disabled {
 }
 
 .toolbar__option-button[aria-pressed="true"] {
-  border-color: var(--border);
+  border-color: transparent;
   color: var(--cell-text);
-  background: var(--surface);
-  box-shadow: 0 6px 18px rgb(15 23 42 / 0.08);
+  background: color-mix(in srgb, var(--marked), var(--surface) 64%);
+  font-weight: 900;
 }
 
 .workspace {

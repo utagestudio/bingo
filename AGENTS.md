@@ -120,7 +120,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
 - Place display size and the play-mode switch together as a right-aligned capture/play group, ordered as display size first and the play-mode switch second.
-- Use icon-plus-text option button groups instead of dropdowns for theme, language, and display size; show every option and highlight the selected one.
+- Use icon-plus-text option button groups instead of dropdowns for theme, language, and display size; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
 - Include a short guide in the editor panel explaining that play mode is used for bingo play and OBS capture, and edit mode allows drag rearrangement.
 - Keep the play-mode edit-return button small and positioned at the top right.
