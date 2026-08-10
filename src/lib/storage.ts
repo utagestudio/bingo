@@ -11,7 +11,7 @@ import type {
 import { BOARD_IDS } from "../types/bingo";
 import { buildLayout } from "./layout";
 
-export const STORAGE_KEY = "obs-bingo-tool:v1";
+export const STORAGE_KEY = "achievement-bing:v1";
 
 const DEFAULT_BOARD_1_SAMPLES: Record<
   Locale,

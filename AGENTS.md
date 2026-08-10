@@ -135,7 +135,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 Use this LocalStorage key unless deliberately migrating:
 
 ```text
-obs-bingo-tool:v1
+achievement-bing:v1
 ```
 
 Expected shape:

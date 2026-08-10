@@ -294,7 +294,7 @@ reachLines = lines where marked count is boardSize - 1
 ### LocalStorageキー
 
 ```text
-obs-bingo-tool:v1
+achievement-bing:v1
 ```
 
 ### 保存データ
