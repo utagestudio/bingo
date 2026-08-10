@@ -15,13 +15,6 @@ type ToolbarProps = {
   onTransparentBackgroundChange: (enabled: boolean) => void;
 };
 
-const DISPLAY_SCALE_ORDER: DisplayScale[] = ["compact", "standard", "fit"];
-
-function getNextDisplayScale(displayScale: DisplayScale): DisplayScale {
-  const currentIndex = DISPLAY_SCALE_ORDER.indexOf(displayScale);
-  return DISPLAY_SCALE_ORDER[(currentIndex + 1) % DISPLAY_SCALE_ORDER.length];
-}
-
 function ToolbarIcon({ kind }: { kind: "theme" | "language" | "display" }) {
   if (kind === "theme") {
     return (
@@ -62,40 +55,65 @@ export function Toolbar({
   onLocaleChange,
   onTransparentBackgroundChange,
 }: ToolbarProps) {
-  const themeLabel = theme === "light" ? t("light") : t("dark");
-  const localeLabel = locale === "ja" ? "日本語" : "English";
-  const displayScaleLabel =
-    displayScale === "compact"
-      ? t("compact")
-      : displayScale === "standard"
-        ? t("standard")
-        : t("fit");
-
   return (
     <div className="toolbar">
       <div className="toolbar__group toolbar__group--settings">
-        <button
-          className="toolbar__cycle-button"
-          type="button"
-          disabled={!editMode}
-          aria-label={`${t("theme")}: ${themeLabel}`}
-          onClick={() => onThemeChange(theme === "light" ? "dark" : "light")}
+        <div
+          className="toolbar__option-group"
+          role="group"
+          aria-label={t("theme")}
         >
           <ToolbarIcon kind="theme" />
-          <span>{t("theme")}</span>
-          <strong>{themeLabel}</strong>
-        </button>
-        <button
-          className="toolbar__cycle-button"
-          type="button"
-          disabled={!editMode}
-          aria-label={`${t("language")}: ${localeLabel}`}
-          onClick={() => onLocaleChange(locale === "ja" ? "en" : "ja")}
+          <span className="toolbar__option-label">{t("theme")}</span>
+          <div className="toolbar__option-list">
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={theme === "light"}
+              onClick={() => onThemeChange("light")}
+            >
+              {t("light")}
+            </button>
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={theme === "dark"}
+              onClick={() => onThemeChange("dark")}
+            >
+              {t("dark")}
+            </button>
+          </div>
+        </div>
+        <div
+          className="toolbar__option-group"
+          role="group"
+          aria-label={t("language")}
         >
           <ToolbarIcon kind="language" />
-          <span>{t("language")}</span>
-          <strong>{localeLabel}</strong>
-        </button>
+          <span className="toolbar__option-label">{t("language")}</span>
+          <div className="toolbar__option-list">
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={locale === "ja"}
+              onClick={() => onLocaleChange("ja")}
+            >
+              日本語
+            </button>
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={locale === "en"}
+              onClick={() => onLocaleChange("en")}
+            >
+              English
+            </button>
+          </div>
+        </div>
         <label className="toolbar__check">
           <input
             type="checkbox"
@@ -109,17 +127,43 @@ export function Toolbar({
         </label>
       </div>
       <div className="toolbar__group toolbar__group--display">
-        <button
-          className="toolbar__cycle-button"
-          type="button"
-          disabled={!editMode}
-          aria-label={`${t("displaySize")}: ${displayScaleLabel}`}
-          onClick={() => onDisplayScaleChange(getNextDisplayScale(displayScale))}
+        <div
+          className="toolbar__option-group"
+          role="group"
+          aria-label={t("displaySize")}
         >
           <ToolbarIcon kind="display" />
-          <span>{t("displaySize")}</span>
-          <strong>{displayScaleLabel}</strong>
-        </button>
+          <span className="toolbar__option-label">{t("displaySize")}</span>
+          <div className="toolbar__option-list">
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={displayScale === "compact"}
+              onClick={() => onDisplayScaleChange("compact")}
+            >
+              {t("compact")}
+            </button>
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={displayScale === "standard"}
+              onClick={() => onDisplayScaleChange("standard")}
+            >
+              {t("standard")}
+            </button>
+            <button
+              className="toolbar__option-button"
+              type="button"
+              disabled={!editMode}
+              aria-pressed={displayScale === "fit"}
+              onClick={() => onDisplayScaleChange("fit")}
+            >
+              {t("fit")}
+            </button>
+          </div>
+        </div>
         <button
           className="toolbar__button toolbar__button--primary"
           type="button"

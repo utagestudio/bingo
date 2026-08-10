@@ -194,7 +194,7 @@ input:disabled {
 }
 
 .toolbar__check,
-.toolbar__cycle-button {
+.toolbar__option-group {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -202,6 +202,10 @@ input:disabled {
   color: var(--muted-text);
   font-size: 14px;
   font-weight: 700;
+}
+
+.toolbar__option-group {
+  flex-wrap: wrap;
 }
 
 .editor-panel input,
@@ -217,21 +221,10 @@ input:disabled {
   background: var(--surface);
 }
 
-.toolbar__cycle-button {
-  border: 1px solid transparent;
-  border-radius: 6px;
-  padding: 0 10px;
-  background: transparent;
-}
-
-.toolbar__cycle-button:hover {
-  color: var(--cell-text);
-  background: color-mix(in srgb, var(--surface), transparent 20%);
-}
-
-.toolbar__cycle-button svg {
+.toolbar__option-group svg {
   width: 18px;
   height: 18px;
+  flex: 0 0 auto;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -239,9 +232,41 @@ input:disabled {
   stroke-linejoin: round;
 }
 
-.toolbar__cycle-button strong {
+.toolbar__option-label {
+  white-space: nowrap;
+}
+
+.toolbar__option-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface), var(--background) 16%);
+}
+
+.toolbar__option-button {
+  min-height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0 8px;
+  color: var(--muted-text);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.toolbar__option-button:hover {
   color: var(--cell-text);
-  font-weight: 900;
+  background: color-mix(in srgb, var(--surface), transparent 20%);
+}
+
+.toolbar__option-button[aria-pressed="true"] {
+  border-color: var(--border);
+  color: var(--cell-text);
+  background: var(--surface);
+  box-shadow: 0 6px 18px rgb(15 23 42 / 0.08);
 }
 
 .workspace {
@@ -564,8 +589,16 @@ input:disabled {
   }
 
   .toolbar__check,
-  .toolbar__cycle-button,
+  .toolbar__option-group,
   .toolbar__button {
     width: 100%;
+  }
+
+  .toolbar__option-list {
+    flex: 1;
+  }
+
+  .toolbar__option-button {
+    flex: 1;
   }
 }
