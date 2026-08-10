@@ -13,54 +13,91 @@ import { buildLayout } from "./layout";
 
 export const STORAGE_KEY = "obs-bingo-tool:v1";
 
-const DEFAULT_BOARD_1_LINES = [
-  "木を1スタック集める",
-  "石の道具を一式作る",
-  "鉄インゴットを入手する",
-  "防具を1部位作る",
-  "ベッドを作る",
-  "村を見つける",
-  "村人と取引する",
-  "動物を2匹繁殖させる",
-  "畑を作る",
-  "食料を1スタック用意する",
-  "洞窟を探検する",
-  "ダイヤを見つける",
-  "レッドストーンを入手する",
-  "モンスターに不意打ちされる",
-  "クリーパーに爆破される",
-  "スケルトンに撃たれる",
-  "ネザーゲートを作る",
-  "ネザーに入る",
-  "要塞または構造物を見つける",
-  "エンチャントをする",
-  "釣りをする",
-  "名札またはレアアイテムを見つける",
-  "高い場所から落ちる",
-  "今日の拠点を完成させる",
-] as const;
+const DEFAULT_BOARD_1_SAMPLES: Record<
+  Locale,
+  { name: string; lines: readonly string[] }
+> = {
+  ja: {
+    name: "マインクラフトビンゴ（サンプル）",
+    lines: [
+      "木を1スタック集める",
+      "石の道具を一式作る",
+      "鉄インゴットを入手する",
+      "防具を1部位作る",
+      "ベッドを作る",
+      "村を見つける",
+      "村人と取引する",
+      "動物を2匹繁殖させる",
+      "畑を作る",
+      "食料を1スタック用意する",
+      "洞窟を探検する",
+      "ダイヤを見つける",
+      "レッドストーンを入手する",
+      "モンスターに不意打ちされる",
+      "クリーパーに爆破される",
+      "スケルトンに撃たれる",
+      "ネザーゲートを作る",
+      "ネザーに入る",
+      "要塞または構造物を見つける",
+      "エンチャントをする",
+      "釣りをする",
+      "名札またはレアアイテムを見つける",
+      "高い場所から落ちる",
+      "今日の拠点を完成させる",
+    ],
+  },
+  en: {
+    name: "Minecraft Bingo (Sample)",
+    lines: [
+      "Collect a stack of wood",
+      "Craft a full set of stone tools",
+      "Get an iron ingot",
+      "Craft one piece of armor",
+      "Make a bed",
+      "Find a village",
+      "Trade with a villager",
+      "Breed two animals",
+      "Build a farm",
+      "Prepare a stack of food",
+      "Explore a cave",
+      "Find diamonds",
+      "Get redstone",
+      "Get ambushed by a mob",
+      "Get blown up by a creeper",
+      "Get shot by a skeleton",
+      "Build a Nether portal",
+      "Enter the Nether",
+      "Find a fortress or structure",
+      "Enchant an item",
+      "Go fishing",
+      "Find a name tag or rare item",
+      "Fall from a high place",
+      "Finish today's base",
+    ],
+  },
+};
 
-function createDefaultItems(id: BoardId): BingoItem[] {
+function createDefaultItems(id: BoardId, locale: Locale): BingoItem[] {
   if (id !== "board-1") {
     return [];
   }
 
-  return DEFAULT_BOARD_1_LINES.map((label, index) => ({
+  return DEFAULT_BOARD_1_SAMPLES[locale].lines.map((label, index) => ({
     id: `default-board-1-item-${index + 1}`,
     label,
   }));
 }
 
-export function createDefaultBoard(id: BoardId): BoardState {
+export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
   const now = new Date().toISOString();
-  const items = createDefaultItems(id);
+  const items = createDefaultItems(id, locale);
   const rawInput = items.map((item) => item.label).join("\n");
 
   return {
     id,
     name:
       id === "board-1"
-        ? "マインクラフトビンゴ（サンプル）"
+        ? DEFAULT_BOARD_1_SAMPLES[locale].name
         : `Board ${id.split("-")[1]}`,
     rawInput,
     items,
@@ -81,9 +118,9 @@ export function createDefaultState(locale: Locale): AppState {
     editMode: true,
     locale,
     boards: {
-      "board-1": createDefaultBoard("board-1"),
-      "board-2": createDefaultBoard("board-2"),
-      "board-3": createDefaultBoard("board-3"),
+      "board-1": createDefaultBoard("board-1", locale),
+      "board-2": createDefaultBoard("board-2", locale),
+      "board-3": createDefaultBoard("board-3", locale),
     },
   };
 }

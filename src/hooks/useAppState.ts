@@ -214,7 +214,10 @@ export function useAppState() {
       ...current,
       boards: {
         ...current.boards,
-        [current.activeBoardId]: createDefaultBoard(current.activeBoardId),
+        [current.activeBoardId]: createDefaultBoard(
+          current.activeBoardId,
+          current.locale,
+        ),
       },
     }));
   }, []);
