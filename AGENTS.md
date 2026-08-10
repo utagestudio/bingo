@@ -19,7 +19,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
 - Support light and dark themes, with light as the default.
-- Support compact and standard display sizes for OBS capture, stored per board.
+- Support compact, standard, and fit display sizes for OBS capture, stored per board.
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
@@ -106,7 +106,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Default to a light-leaning visual theme with clear borders and dark readable text.
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
 - Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
-- Provide compact and standard display size options; compact favors OBS cropping, standard favors a larger board similar to edit mode.
+- Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
@@ -252,7 +252,7 @@ For UI changes, manually or automatically verify:
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
 - light and dark themes can be switched and display mode updates immediately
-- compact and standard display sizes can be switched and display mode updates immediately
+- compact, standard, and fit display sizes can be switched and display mode updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:

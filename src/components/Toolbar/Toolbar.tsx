@@ -70,6 +70,7 @@ export function Toolbar({
         >
           <option value="compact">{t("compact")}</option>
           <option value="standard">{t("standard")}</option>
+          <option value="fit">{t("fit")}</option>
         </select>
       </label>
       <label className="toolbar__field">

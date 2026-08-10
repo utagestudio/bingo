@@ -21,7 +21,8 @@ export type TranslationKey =
   | "feedback"
   | "displaySize"
   | "compact"
-  | "standard";
+  | "standard"
+  | "fit";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -46,6 +47,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     displaySize: "表示サイズ",
     compact: "小さめ",
     standard: "通常",
+    fit: "ブラウザ合わせ",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -69,6 +71,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     displaySize: "Display size",
     compact: "Compact",
     standard: "Standard",
+    fit: "Fit browser",
   },
 };
 

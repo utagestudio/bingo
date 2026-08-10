@@ -63,7 +63,11 @@ export function parseTheme(value: unknown): Theme {
 }
 
 export function parseDisplayScale(value: unknown): DisplayScale {
-  return value === "standard" ? "standard" : "compact";
+  if (value === "standard" || value === "fit") {
+    return value;
+  }
+
+  return "compact";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

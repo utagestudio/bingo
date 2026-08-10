@@ -218,16 +218,28 @@ input:disabled {
 
 .app-shell[data-edit-mode="false"] .workspace {
   grid-template-columns: 1fr;
-  width: min(92vmin, 980px);
+  width: min(72vmin, 760px);
   max-width: 100%;
 }
 
 .app-shell[data-edit-mode="false"][data-display-scale="standard"] .workspace {
-  width: min(100%, 1400px);
+  width: min(92vmin, 980px);
 }
 
 .app-shell[data-edit-mode="false"][data-display-scale="standard"] .bingo-board {
-  width: min(100%, 96vmin);
+  width: min(100%, 92vmin);
+}
+
+.app-shell[data-edit-mode="false"][data-display-scale="fit"] {
+  padding: clamp(8px, 1.5vw, 20px);
+}
+
+.app-shell[data-edit-mode="false"][data-display-scale="fit"] .workspace {
+  width: min(100%, calc(100vmin - 72px));
+}
+
+.app-shell[data-edit-mode="false"][data-display-scale="fit"] .bingo-board {
+  width: min(100%, calc(100vmin - 72px));
 }
 
 .board-stage {

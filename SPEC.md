@@ -338,7 +338,7 @@ type LineStatus = {
 type BoardAppearance = {
   transparentBackground: boolean;
   theme: "light" | "dark";
-  displayScale: "compact" | "standard";
+  displayScale: "compact" | "standard" | "fit";
 };
 ```
 
@@ -518,8 +518,9 @@ border: #475569
 表示モードはOBSウィンドウキャプチャの主運用画面として扱う。
 
 - 盤面を中央に大きく表示する。
-- 表示サイズは `compact` と `standard` を切り替えられるようにする。
+- 表示サイズは `compact`、`standard`、`fit` を切り替えられるようにする。
 - `compact` はOBSでクロップしやすい小さめ表示、`standard` は編集モードに近い大きめ表示とする。
+- `fit` はブラウザ内で取れる正方形領域にできるだけ合わせる表示とする。
 - 表示サイズは盤面ごとに保存する。
 - 編集用UIは表示しない。
 - 背景は配信に載る前提で、見切れても違和感がない余白を持たせる。
@@ -676,7 +677,7 @@ border: #475569
 - overlay表示: 副運用
 - 多言語対応: 日本語、英語
 - light/darkテーマ切り替え
-- 表示モードのcompact/standardサイズ切り替え
+- 表示モードのcompact/standard/fitサイズ切り替え
 - Cloudflare向けビルド設定
 
 実装しない:
