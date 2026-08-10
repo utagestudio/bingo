@@ -26,6 +26,7 @@ export function App() {
     toggleMarked,
     setTheme,
     setTransparentBackground,
+    setDisplayScale,
   } = useAppState();
   const t = useMemo(() => createTranslator(state.locale), [state.locale]);
   const lineStatuses = useMemo(
@@ -62,6 +63,7 @@ export function App() {
         className="app-shell"
         data-theme={activeBoard.appearance.theme}
         data-edit-mode={visibleEditMode ? "true" : "false"}
+        data-display-scale={activeBoard.appearance.displayScale}
       >
         {visibleEditMode ? (
           <header className="app-header">
@@ -80,12 +82,14 @@ export function App() {
           <Toolbar
             editMode={visibleEditMode}
             theme={activeBoard.appearance.theme}
+            displayScale={activeBoard.appearance.displayScale}
             locale={state.locale}
             transparentBackground={activeBoard.appearance.transparentBackground}
             t={t}
             onEditModeChange={setEditMode}
             onShuffle={shuffleBoard}
             onThemeChange={setTheme}
+            onDisplayScaleChange={setDisplayScale}
             onLocaleChange={setLocale}
             onTransparentBackgroundChange={setTransparentBackground}
           />

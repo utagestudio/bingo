@@ -19,6 +19,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
 - Support light and dark themes, with light as the default.
+- Support compact and standard display sizes for OBS capture, stored per board.
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
@@ -91,6 +92,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
 - Store theme per board and do not let theme changes alter item text, layout, or marked state.
+- Store display size per board and do not let size changes alter item text, layout, or marked state.
 - Prefer small, focused modules over large files.
 - Avoid putting board generation, storage migration, line detection, and translation dictionaries directly in React components.
 - Add concise Japanese comments where the intent may not be obvious to the project owner.
@@ -104,6 +106,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Default to a light-leaning visual theme with clear borders and dark readable text.
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
 - Treat display mode as the main OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
+- Provide compact and standard display size options; compact favors OBS cropping, standard favors a larger board similar to edit mode.
 - Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
@@ -232,6 +235,7 @@ For logic changes, add or update unit tests for:
 - LocalStorage encode/decode or migration helpers
 - locale initialization, persistence, and URL query override
 - theme persistence and restoration
+- display size persistence and restoration
 
 For UI changes, manually or automatically verify:
 
@@ -248,6 +252,7 @@ For UI changes, manually or automatically verify:
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
 - light and dark themes can be switched and display mode updates immediately
+- compact and standard display sizes can be switched and display mode updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:

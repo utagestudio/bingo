@@ -338,6 +338,7 @@ type LineStatus = {
 type BoardAppearance = {
   transparentBackground: boolean;
   theme: "light" | "dark";
+  displayScale: "compact" | "standard";
 };
 ```
 
@@ -517,6 +518,9 @@ border: #475569
 表示モードはOBSウィンドウキャプチャの主運用画面として扱う。
 
 - 盤面を中央に大きく表示する。
+- 表示サイズは `compact` と `standard` を切り替えられるようにする。
+- `compact` はOBSでクロップしやすい小さめ表示、`standard` は編集モードに近い大きめ表示とする。
+- 表示サイズは盤面ごとに保存する。
 - 編集用UIは表示しない。
 - 背景は配信に載る前提で、見切れても違和感がない余白を持たせる。
 - 編集復帰ボタンは必ず用意し、OBSでクロップしやすい画面端に小さく置く。
@@ -624,6 +628,7 @@ border: #475569
 - 1 x 1盤面のFree Spaceをビンゴとして判定できる。
 - localeの初期化、保存、URLクエリ上書きができる。
 - light/darkテーマ設定を保存・復元できる。
+- 表示サイズ設定を保存・復元できる。
 
 ### UIテスト
 
@@ -642,6 +647,7 @@ border: #475569
 - 編集モードOFFの画面をOBSウィンドウキャプチャ想定でクロップしやすい。
 - 日本語UIと英語UIを切り替えられる。
 - light/darkテーマを切り替えられ、表示モードにも反映される。
+- 表示サイズを切り替えられ、表示モードの盤面サイズに反映される。
 
 ### 表示確認
 
@@ -670,6 +676,7 @@ border: #475569
 - overlay表示: 副運用
 - 多言語対応: 日本語、英語
 - light/darkテーマ切り替え
+- 表示モードのcompact/standardサイズ切り替え
 - Cloudflare向けビルド設定
 
 実装しない:

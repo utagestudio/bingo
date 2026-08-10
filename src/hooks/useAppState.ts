@@ -4,6 +4,7 @@ import type {
   BingoCell,
   BoardId,
   BoardState,
+  DisplayScale,
   Locale,
   Theme,
 } from "../types/bingo";
@@ -195,6 +196,18 @@ export function useAppState() {
     );
   }, []);
 
+  const setDisplayScale = useCallback((displayScale: DisplayScale) => {
+    setState((current) =>
+      withUpdatedBoard(current, current.activeBoardId, (board) => ({
+        ...board,
+        appearance: {
+          ...board.appearance,
+          displayScale,
+        },
+      })),
+    );
+  }, []);
+
   return {
     state,
     activeBoard,
@@ -211,5 +224,6 @@ export function useAppState() {
     toggleMarked,
     setTheme,
     setTransparentBackground,
+    setDisplayScale,
   };
 }

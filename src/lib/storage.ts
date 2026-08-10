@@ -4,6 +4,7 @@ import type {
   BingoItem,
   BoardId,
   BoardState,
+  DisplayScale,
   Locale,
   Theme,
 } from "../types/bingo";
@@ -26,6 +27,7 @@ export function createDefaultBoard(id: BoardId): BoardState {
     appearance: {
       transparentBackground: false,
       theme: "light",
+      displayScale: "compact",
     },
   };
 }
@@ -58,6 +60,10 @@ export function parseLocale(value: string | null | undefined): Locale | null {
 
 export function parseTheme(value: unknown): Theme {
   return value === "dark" ? "dark" : "light";
+}
+
+export function parseDisplayScale(value: unknown): DisplayScale {
+  return value === "standard" ? "standard" : "compact";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -131,6 +137,7 @@ function sanitizeBoard(
           ? appearance.transparentBackground
           : fallback.appearance.transparentBackground,
       theme: parseTheme(appearance.theme),
+      displayScale: parseDisplayScale(appearance.displayScale),
     },
   };
 }

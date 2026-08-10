@@ -1,15 +1,17 @@
-import type { Locale, Theme } from "../../types/bingo";
+import type { DisplayScale, Locale, Theme } from "../../types/bingo";
 import type { TranslationKey } from "../../lib/i18n";
 
 type ToolbarProps = {
   editMode: boolean;
   theme: Theme;
+  displayScale: DisplayScale;
   locale: Locale;
   transparentBackground: boolean;
   t: (key: TranslationKey) => string;
   onEditModeChange: (editMode: boolean) => void;
   onShuffle: () => void;
   onThemeChange: (theme: Theme) => void;
+  onDisplayScaleChange: (displayScale: DisplayScale) => void;
   onLocaleChange: (locale: Locale) => void;
   onTransparentBackgroundChange: (enabled: boolean) => void;
 };
@@ -17,12 +19,14 @@ type ToolbarProps = {
 export function Toolbar({
   editMode,
   theme,
+  displayScale,
   locale,
   transparentBackground,
   t,
   onEditModeChange,
   onShuffle,
   onThemeChange,
+  onDisplayScaleChange,
   onLocaleChange,
   onTransparentBackgroundChange,
 }: ToolbarProps) {
@@ -53,6 +57,19 @@ export function Toolbar({
         >
           <option value="light">{t("light")}</option>
           <option value="dark">{t("dark")}</option>
+        </select>
+      </label>
+      <label className="toolbar__field">
+        <span>{t("displaySize")}</span>
+        <select
+          value={displayScale}
+          disabled={!editMode}
+          onChange={(event) =>
+            onDisplayScaleChange(event.target.value as DisplayScale)
+          }
+        >
+          <option value="compact">{t("compact")}</option>
+          <option value="standard">{t("standard")}</option>
         </select>
       </label>
       <label className="toolbar__field">

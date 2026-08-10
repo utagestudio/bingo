@@ -18,7 +18,10 @@ export type TranslationKey =
   | "transparent"
   | "itemCount"
   | "boardSize"
-  | "feedback";
+  | "feedback"
+  | "displaySize"
+  | "compact"
+  | "standard";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
@@ -40,6 +43,9 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     itemCount: "項目数",
     boardSize: "盤面",
     feedback: "バグ報告・機能要望",
+    displaySize: "表示サイズ",
+    compact: "小さめ",
+    standard: "通常",
   },
   en: {
     appTitle: "OBS Bingo",
@@ -60,6 +66,9 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     itemCount: "Items",
     boardSize: "Board",
     feedback: "Bug Reports & Feature Requests",
+    displaySize: "Display size",
+    compact: "Compact",
+    standard: "Standard",
   },
 };
 
