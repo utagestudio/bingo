@@ -425,9 +425,15 @@ input:disabled {
     0 0 24px color-mix(in srgb, var(--bingo), transparent 45%);
 }
 
-.board-cell[data-dragging-over="true"] {
-  border-color: var(--reach);
-  transform: translateY(-2px);
+.app-shell[data-arrange-mode="true"]
+  .board-cell[data-cell-type="item"][data-dragging-over="true"] {
+  border-color: var(--bingo);
+  background: color-mix(in srgb, var(--cell), var(--bingo) 18%);
+  box-shadow:
+    inset 0 0 0 4px color-mix(in srgb, var(--bingo), transparent 28%),
+    0 0 0 4px color-mix(in srgb, var(--bingo), transparent 62%),
+    0 12px 28px rgb(15 23 42 / 0.16);
+  transform: translateY(-3px) scale(1.015);
 }
 
 .board-cell__label {
