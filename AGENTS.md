@@ -185,6 +185,7 @@ This behavior should be covered by unit tests.
 Default boards:
 
 - Board 1 should initialize as a localized Faaast Penguin bingo sample with 24 item cells and one centered Free Space.
+- The Faaast Penguin sample should make Tour 1st-3rd count cells at `x3`, Activity 1st-3rd count cells at `x5`, and no-knockout-fall finish a count cell at `x10`.
 - In the English Faaast Penguin sample, translate Japanese `スペシャル` as `Ultimate Ride`.
 - Board 2 and Board 3 should initialize as empty boards.
 - Resetting the active board should recreate that board's default for the current locale.

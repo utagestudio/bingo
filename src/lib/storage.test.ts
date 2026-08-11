@@ -7,9 +7,23 @@ describe("storage defaults", () => {
 
     expect(board.name).toBe("Faaast Penguin （サンプル）");
     expect(board.items).toHaveLength(24);
-    expect(board.rawInput).toContain("ツアーに1位になる");
+    expect(board.rawInput).toContain("ツアーに1位になる x3");
+    expect(board.items[0]).toMatchObject({
+      label: "ツアーに1位になる",
+      targetCount: 3,
+    });
     expect(board.rawInput).toContain("缶詰を10個集めないでゴールする");
+    expect(board.items[16]).toMatchObject({
+      label: "ノックアウト（落下）せずゴールする",
+      targetCount: 10,
+    });
     expect(board.layout).toHaveLength(25);
+    expect(
+      board.layout.find((cell) => cell.itemId === board.items[0].id),
+    ).toMatchObject({
+      currentCount: 0,
+      targetCount: 3,
+    });
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
     expect(board.appearance.cellFontScale).toBe(100);
   });
@@ -20,7 +34,11 @@ describe("storage defaults", () => {
 
     expect(board.name).toBe("Faaast Penguin (Sample)");
     expect(board.items).toHaveLength(24);
-    expect(board.rawInput).toContain("Finish 1st in a Tour");
+    expect(board.rawInput).toContain("Finish 1st in a Tour x3");
+    expect(board.items[0]).toMatchObject({
+      label: "Finish 1st in a Tour",
+      targetCount: 3,
+    });
     expect(board.rawInput).toContain(
       "Use your Ultimate Ride 3 times in one Activity",
     );

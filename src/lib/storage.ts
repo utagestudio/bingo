@@ -13,6 +13,7 @@ import {
   CELL_FONT_SCALE_MAX,
   CELL_FONT_SCALE_MIN,
 } from "../types/bingo";
+import { parseItemLine } from "./items";
 import { buildLayout } from "./layout";
 
 export const STORAGE_KEY = "achievement-bingo:v1";
@@ -24,12 +25,12 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
   ja: {
     name: "Faaast Penguin （サンプル）",
     lines: [
-      "ツアーに1位になる",
-      "ツアーに2位になる",
-      "ツアーに3位になる",
-      "アクティビティで1位になる",
-      "アクティビティで2位になる",
-      "アクティビティで3位になる",
+      "ツアーに1位になる x3",
+      "ツアーに2位になる x3",
+      "ツアーに3位になる x3",
+      "アクティビティで1位になる x5",
+      "アクティビティで2位になる x5",
+      "アクティビティで3位になる x5",
       "ツアー内の全アクティビティで同じ順位を取る",
       "1アクティビティでスペシャル3回発動",
       "走行中にエモートを使う",
@@ -40,7 +41,7 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
       "ピクセル・レボリューションで1万点とる",
       "スペシャルを使わないでゴールする",
       "パーティーIDでチームを組んで走る",
-      "ノックアウト（落下）せずゴールする",
+      "ノックアウト（落下）せずゴールする x10",
       "ボムザラシで爆破する",
       "パラグライダーを使う",
       "アザラシにアタックを決める",
@@ -53,12 +54,12 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
   en: {
     name: "Faaast Penguin (Sample)",
     lines: [
-      "Finish 1st in a Tour",
-      "Finish 2nd in a Tour",
-      "Finish 3rd in a Tour",
-      "Finish 1st in an Activity",
-      "Finish 2nd in an Activity",
-      "Finish 3rd in an Activity",
+      "Finish 1st in a Tour x3",
+      "Finish 2nd in a Tour x3",
+      "Finish 3rd in a Tour x3",
+      "Finish 1st in an Activity x5",
+      "Finish 2nd in an Activity x5",
+      "Finish 3rd in an Activity x5",
       "Get the same place in every Activity in a Tour",
       "Use your Ultimate Ride 3 times in one Activity",
       "Use an Emote while racing",
@@ -69,7 +70,7 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
       "Score 10,000 points in Pixel Revolution",
       "Finish without using your Ultimate Ride",
       "Team up with a Party ID and race",
-      "Finish without dropping out from a fall",
+      "Finish without dropping out from a fall x10",
       "Blow up a Bombzarashi",
       "Use a paraglider",
       "Land an attack on a seal",
@@ -86,16 +87,17 @@ function createDefaultItems(id: BoardId, locale: Locale): BingoItem[] {
     return [];
   }
 
-  return DEFAULT_BOARD_1_SAMPLES[locale].lines.map((label, index) => ({
+  return DEFAULT_BOARD_1_SAMPLES[locale].lines.map((line, index) => ({
     id: `default-board-1-item-${index + 1}`,
-    label,
+    ...parseItemLine(line),
   }));
 }
 
 export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
   const now = new Date().toISOString();
   const items = createDefaultItems(id, locale);
-  const rawInput = items.map((item) => item.label).join("\n");
+  const rawInput =
+    id === "board-1" ? DEFAULT_BOARD_1_SAMPLES[locale].lines.join("\n") : "";
 
   return {
     id,

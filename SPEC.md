@@ -192,6 +192,7 @@ overlay表示では編集UIを出さない。ただし初期スコープの保�
 - アクティブスロットIDもLocalStorageへ保存する。
 - スロット切り替え時は即座に盤面表示へ反映する。
 - Board 1の初期状態には、ゲーム実況向けのサンプルとしてFaaast Penguin用5 x 5ビンゴを入れる。
+- Faaast Penguinサンプルでは、ツアー1-3位を各 `x3`、アクティビティ1-3位を各 `x5`、ノックアウト（落下）せずゴールを `x10` のカウント型項目にする。
 - Board 1の初期タイトルは、言語に応じて `Faaast Penguin （サンプル）` または `Faaast Penguin (Sample)` とする。
 - Board 2、Board 3は空の盤面として開始する。
 
