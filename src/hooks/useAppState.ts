@@ -4,7 +4,6 @@ import type {
   BingoCell,
   BoardId,
   BoardState,
-  DisplayScale,
   Locale,
   Theme,
 } from "../types/bingo";
@@ -198,13 +197,13 @@ export function useAppState() {
     );
   }, []);
 
-  const setDisplayScale = useCallback((displayScale: DisplayScale) => {
+  const setCellFontScale = useCallback((cellFontScale: number) => {
     setState((current) =>
       withUpdatedBoard(current, current.activeBoardId, (board) => ({
         ...board,
         appearance: {
           ...board.appearance,
-          displayScale,
+          cellFontScale,
         },
       })),
     );
@@ -251,7 +250,7 @@ export function useAppState() {
     toggleMarked,
     setTheme,
     setTransparentBackground,
-    setDisplayScale,
+    setCellFontScale,
     clearActiveBoardMarks,
     resetActiveBoard,
   };

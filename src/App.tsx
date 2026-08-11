@@ -26,7 +26,7 @@ export function App() {
     toggleMarked,
     setTheme,
     setTransparentBackground,
-    setDisplayScale,
+    setCellFontScale,
     clearActiveBoardMarks,
     resetActiveBoard,
   } = useAppState();
@@ -53,7 +53,6 @@ export function App() {
         data-theme={activeBoard.appearance.theme}
         data-arrange-mode={arrangeMode ? "true" : "false"}
         data-overlay-mode={overlayMode ? "true" : "false"}
-        data-display-scale={activeBoard.appearance.displayScale}
       >
         {visibleControls ? (
           <header className="app-header">
@@ -71,12 +70,12 @@ export function App() {
         {visibleControls ? (
           <Toolbar
             theme={activeBoard.appearance.theme}
-            displayScale={activeBoard.appearance.displayScale}
+            cellFontScale={activeBoard.appearance.cellFontScale}
             locale={state.locale}
             transparentBackground={activeBoard.appearance.transparentBackground}
             t={t}
             onThemeChange={setTheme}
-            onDisplayScaleChange={setDisplayScale}
+            onCellFontScaleChange={setCellFontScale}
             onLocaleChange={setLocale}
             onTransparentBackgroundChange={setTransparentBackground}
           />
@@ -88,6 +87,7 @@ export function App() {
               cells={activeBoard.layout}
               visualStatuses={visualStatuses}
               arrangeMode={arrangeMode}
+              cellFontScale={activeBoard.appearance.cellFontScale}
               onReorder={reorderCells}
               onToggleMarked={toggleMarked}
             />

@@ -11,7 +11,7 @@ describe("storage defaults", () => {
     expect(board.rawInput).toContain("缶詰を10個集めないでゴールする");
     expect(board.layout).toHaveLength(25);
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
-    expect(board.appearance.displayScale).toBe("standard");
+    expect(board.appearance.cellFontScale).toBe(100);
   });
 
   it("creates an English Faaast Penguin sample when the locale is English", () => {
@@ -27,10 +27,11 @@ describe("storage defaults", () => {
     expect(board.rawInput).toContain("Finish without using your Ultimate Ride");
     expect(board.rawInput).toContain("Finish without collecting 10 sardine cans");
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
+    expect(state.version).toBe(3);
     expect(state.arrangeMode).toBe(false);
   });
 
-  it("migrates v1 edit mode state to v2 arrange mode without losing board data", () => {
+  it("migrates v1 edit mode state to v3 arrange mode without losing board data", () => {
     const fallback = createDefaultState("ja");
     const migrated = sanitizeState(
       {
@@ -90,7 +91,7 @@ describe("storage defaults", () => {
       fallback,
     );
 
-    expect(migrated.version).toBe(2);
+    expect(migrated.version).toBe(3);
     expect(migrated.activeBoardId).toBe("board-2");
     expect(migrated.locale).toBe("en");
     expect(migrated.arrangeMode).toBe(false);
@@ -104,7 +105,41 @@ describe("storage defaults", () => {
     expect(migrated.boards["board-2"].appearance).toMatchObject({
       transparentBackground: true,
       theme: "dark",
-      displayScale: "compact",
+      cellFontScale: 90,
     });
+  });
+
+  it("clamps restored cell font scale to the supported range", () => {
+    const fallback = createDefaultState("ja");
+    const restored = sanitizeState(
+      {
+        version: 3,
+        activeBoardId: "board-1",
+        arrangeMode: true,
+        locale: "ja",
+        boards: {
+          "board-1": {
+            ...fallback.boards["board-1"],
+            appearance: {
+              ...fallback.boards["board-1"].appearance,
+              cellFontScale: 200,
+            },
+          },
+          "board-2": {
+            ...fallback.boards["board-2"],
+            appearance: {
+              ...fallback.boards["board-2"].appearance,
+              cellFontScale: 40,
+            },
+          },
+          "board-3": fallback.boards["board-3"],
+        },
+      },
+      fallback,
+    );
+
+    expect(restored.arrangeMode).toBe(true);
+    expect(restored.boards["board-1"].appearance.cellFontScale).toBe(140);
+    expect(restored.boards["board-2"].appearance.cellFontScale).toBe(80);
   });
 });

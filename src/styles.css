@@ -193,7 +193,8 @@ input:disabled {
 }
 
 .toolbar__check,
-.toolbar__option-group {
+.toolbar__option-group,
+.toolbar__range-group {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -203,7 +204,8 @@ input:disabled {
   font-weight: 700;
 }
 
-.toolbar__option-group {
+.toolbar__option-group,
+.toolbar__range-group {
   flex-wrap: wrap;
 }
 
@@ -215,7 +217,8 @@ input:disabled {
   background: var(--surface);
 }
 
-.toolbar__option-group svg {
+.toolbar__option-group svg,
+.toolbar__range-group svg {
   width: 18px;
   height: 18px;
   flex: 0 0 auto;
@@ -264,6 +267,23 @@ input:disabled {
   font-weight: 900;
 }
 
+.toolbar__range-label {
+  white-space: nowrap;
+}
+
+.toolbar__range {
+  width: clamp(120px, 14vw, 180px);
+  accent-color: var(--marked);
+}
+
+.toolbar__range-value {
+  min-width: 44px;
+  color: var(--cell-text);
+  font-size: 13px;
+  font-weight: 900;
+  text-align: right;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
@@ -274,28 +294,8 @@ input:disabled {
 
 .app-shell[data-overlay-mode="true"] .workspace {
   grid-template-columns: 1fr;
-  width: min(72vmin, 760px);
-  max-width: 100%;
-}
-
-.app-shell[data-overlay-mode="true"][data-display-scale="standard"] .workspace {
   width: min(92vmin, 980px);
-}
-
-.app-shell[data-overlay-mode="true"][data-display-scale="standard"] .bingo-board {
-  width: min(100%, 92vmin);
-}
-
-.app-shell[data-overlay-mode="true"][data-display-scale="fit"] {
-  padding: clamp(8px, 1.5vw, 20px);
-}
-
-.app-shell[data-overlay-mode="true"][data-display-scale="fit"] .workspace {
-  width: min(100%, calc(100vmin - 72px));
-}
-
-.app-shell[data-overlay-mode="true"][data-display-scale="fit"] .bingo-board {
-  width: min(100%, calc(100vmin - 72px));
+  max-width: 100%;
 }
 
 .board-stage {
@@ -595,7 +595,8 @@ input:disabled {
   }
 
   .toolbar__check,
-  .toolbar__option-group {
+  .toolbar__option-group,
+  .toolbar__range-group {
     width: 100%;
   }
 
@@ -605,6 +606,11 @@ input:disabled {
 
   .toolbar__option-button {
     flex: 1;
+  }
+
+  .toolbar__range {
+    flex: 1;
+    width: auto;
   }
 
   .editor-panel__layout-actions {

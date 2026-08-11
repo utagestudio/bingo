@@ -17,10 +17,7 @@ export type TranslationKey =
   | "itemCount"
   | "boardSize"
   | "feedback"
-  | "displaySize"
-  | "compact"
-  | "standard"
-  | "fit"
+  | "cellFontSize"
   | "resetBoard"
   | "clearMarks"
   | "quickGuideTitle"
@@ -45,10 +42,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     itemCount: "項目数",
     boardSize: "盤面",
     feedback: "バグ報告・機能要望",
-    displaySize: "表示サイズ",
-    compact: "小さめ",
-    standard: "通常",
-    fit: "ブラウザ合わせ",
+    cellFontSize: "フォントサイズ",
     resetBoard: "初期状態に戻す",
     clearMarks: "選択状態を全解除する",
     quickGuideTitle: "使い方",
@@ -74,10 +68,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     itemCount: "Items",
     boardSize: "Board",
     feedback: "Bug Reports & Feature Requests",
-    displaySize: "Display size",
-    compact: "Compact",
-    standard: "Standard",
-    fit: "Fit browser",
+    cellFontSize: "Font size",
     resetBoard: "Reset board",
     clearMarks: "Clear all selections",
     quickGuideTitle: "Quick guide",

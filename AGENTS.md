@@ -19,7 +19,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
 - Support light and dark themes, with light as the default.
-- Support compact, standard, and fit display sizes for OBS capture, stored per board.
+- Support per-board bingo cell font size scaling with a range control.
 - Include a localized Faaast Penguin bingo sample as the default Board 1 state.
 - Keep Board 1 default title localized as `Faaast Penguin （サンプル）` or `Faaast Penguin (Sample)`.
 - Auto-save state to LocalStorage.
@@ -99,7 +99,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
 - Store theme per board and do not let theme changes alter item text, layout, or marked state.
-- Store display size per board and do not let size changes alter item text, layout, or marked state.
+- Store cell font scale per board and do not let font size changes alter item text, layout, or marked state.
 - When resetting a board, use the current locale for built-in sample titles and sample item labels.
 - Do not auto-overwrite valid existing LocalStorage data when defaults change; apply new defaults through explicit reset or fresh storage only.
 - Keep the clear-all-selections action scoped to item cells; Free Space must remain marked.
@@ -116,12 +116,11 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Default to a light-leaning visual theme with clear borders and dark readable text.
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
 - Treat the normal state as the main bingo operation surface: cell marking works immediately on first load.
-- Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
-- Use standard as the default display size for new or reset boards.
+- Provide a range control for bingo cell font size, with 100% as the default for new or reset boards.
 - Keep the browser page as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
-- Place display size in the right-aligned capture/display group.
-- Use icon-plus-text option button groups instead of dropdowns for theme, language, and display size; show every option and highlight the selected one with background color rather than heavy borders or shadows.
+- Place font size in the right-aligned display group.
+- Use icon-plus-text option button groups instead of dropdowns for theme and language; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
 - Include a short guide in the editor panel explaining that normal use opens/closes cells and arrange mode allows drag rearrangement.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
@@ -147,7 +146,7 @@ Expected shape:
 
 ```ts
 type AppState = {
-  version: 2;
+  version: 3;
   activeBoardId: "board-1" | "board-2" | "board-3";
   arrangeMode: boolean;
   locale: "ja" | "en";
@@ -260,7 +259,7 @@ For logic changes, add or update unit tests for:
 - LocalStorage encode/decode or migration helpers
 - locale initialization, persistence, and URL query override
 - theme persistence and restoration
-- display size persistence and restoration
+- cell font size persistence and restoration
 
 For UI changes, manually or automatically verify:
 
@@ -275,7 +274,7 @@ For UI changes, manually or automatically verify:
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
 - light and dark themes can be switched and normal/overlay views update immediately
-- compact, standard, and fit display sizes can be switched and board size updates immediately
+- bingo cell font size can be adjusted and board text updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:

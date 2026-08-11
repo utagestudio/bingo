@@ -1,14 +1,19 @@
-import type { DisplayScale, Locale, Theme } from "../../types/bingo";
+import type { Locale, Theme } from "../../types/bingo";
 import type { TranslationKey } from "../../lib/i18n";
+import {
+  CELL_FONT_SCALE_MAX,
+  CELL_FONT_SCALE_MIN,
+  CELL_FONT_SCALE_STEP,
+} from "../../types/bingo";
 
 type ToolbarProps = {
   theme: Theme;
-  displayScale: DisplayScale;
+  cellFontScale: number;
   locale: Locale;
   transparentBackground: boolean;
   t: (key: TranslationKey) => string;
   onThemeChange: (theme: Theme) => void;
-  onDisplayScaleChange: (displayScale: DisplayScale) => void;
+  onCellFontScaleChange: (cellFontScale: number) => void;
   onLocaleChange: (locale: Locale) => void;
   onTransparentBackgroundChange: (enabled: boolean) => void;
 };
@@ -42,12 +47,12 @@ function ToolbarIcon({ kind }: { kind: "theme" | "language" | "display" }) {
 
 export function Toolbar({
   theme,
-  displayScale,
+  cellFontScale,
   locale,
   transparentBackground,
   t,
   onThemeChange,
-  onDisplayScaleChange,
+  onCellFontScaleChange,
   onLocaleChange,
   onTransparentBackgroundChange,
 }: ToolbarProps) {
@@ -119,38 +124,28 @@ export function Toolbar({
       </div>
       <div className="toolbar__group toolbar__group--display">
         <div
-          className="toolbar__option-group"
-          role="group"
-          aria-label={t("displaySize")}
+          className="toolbar__range-group"
+          aria-label={t("cellFontSize")}
         >
           <ToolbarIcon kind="display" />
-          <span className="toolbar__option-label">{t("displaySize")}</span>
-          <div className="toolbar__option-list">
-            <button
-              className="toolbar__option-button"
-              type="button"
-              aria-pressed={displayScale === "compact"}
-              onClick={() => onDisplayScaleChange("compact")}
-            >
-              {t("compact")}
-            </button>
-            <button
-              className="toolbar__option-button"
-              type="button"
-              aria-pressed={displayScale === "standard"}
-              onClick={() => onDisplayScaleChange("standard")}
-            >
-              {t("standard")}
-            </button>
-            <button
-              className="toolbar__option-button"
-              type="button"
-              aria-pressed={displayScale === "fit"}
-              onClick={() => onDisplayScaleChange("fit")}
-            >
-              {t("fit")}
-            </button>
-          </div>
+          <label className="toolbar__range-label" htmlFor="cell-font-scale">
+            {t("cellFontSize")}
+          </label>
+          <input
+            id="cell-font-scale"
+            className="toolbar__range"
+            type="range"
+            min={CELL_FONT_SCALE_MIN}
+            max={CELL_FONT_SCALE_MAX}
+            step={CELL_FONT_SCALE_STEP}
+            value={cellFontScale}
+            onChange={(event) =>
+              onCellFontScaleChange(Number(event.currentTarget.value))
+            }
+          />
+          <output className="toolbar__range-value" htmlFor="cell-font-scale">
+            {cellFontScale}%
+          </output>
         </div>
       </div>
     </div>

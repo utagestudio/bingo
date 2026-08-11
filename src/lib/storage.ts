@@ -4,11 +4,15 @@ import type {
   BingoItem,
   BoardId,
   BoardState,
-  DisplayScale,
   Locale,
   Theme,
 } from "../types/bingo";
-import { BOARD_IDS } from "../types/bingo";
+import {
+  BOARD_IDS,
+  CELL_FONT_SCALE_DEFAULT,
+  CELL_FONT_SCALE_MAX,
+  CELL_FONT_SCALE_MIN,
+} from "../types/bingo";
 import { buildLayout } from "./layout";
 
 export const STORAGE_KEY = "achievement-bingo:v1";
@@ -106,14 +110,14 @@ export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
     appearance: {
       transparentBackground: false,
       theme: "light",
-      displayScale: "standard",
+      cellFontScale: CELL_FONT_SCALE_DEFAULT,
     },
   };
 }
 
 export function createDefaultState(locale: Locale): AppState {
   return {
-    version: 2,
+    version: 3,
     activeBoardId: "board-1",
     arrangeMode: false,
     locale,
@@ -141,12 +145,27 @@ export function parseTheme(value: unknown): Theme {
   return value === "dark" ? "dark" : "light";
 }
 
-export function parseDisplayScale(value: unknown): DisplayScale {
-  if (value === "compact" || value === "standard" || value === "fit") {
-    return value;
+function parseCellFontScale(value: unknown): number {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return Math.min(
+      CELL_FONT_SCALE_MAX,
+      Math.max(CELL_FONT_SCALE_MIN, Math.round(value)),
+    );
   }
 
-  return "standard";
+  return CELL_FONT_SCALE_DEFAULT;
+}
+
+function migrateDisplayScaleToCellFontScale(value: unknown): number {
+  if (value === "compact") {
+    return 90;
+  }
+
+  if (value === "fit") {
+    return 110;
+  }
+
+  return CELL_FONT_SCALE_DEFAULT;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -220,7 +239,10 @@ function sanitizeBoard(
           ? appearance.transparentBackground
           : fallback.appearance.transparentBackground,
       theme: parseTheme(appearance.theme),
-      displayScale: parseDisplayScale(appearance.displayScale),
+      cellFontScale:
+        typeof appearance.cellFontScale === "number"
+          ? parseCellFontScale(appearance.cellFontScale)
+          : migrateDisplayScaleToCellFontScale(appearance.displayScale),
     },
   };
 }
@@ -228,7 +250,7 @@ function sanitizeBoard(
 export function sanitizeState(value: unknown, fallback: AppState): AppState {
   if (
     !isRecord(value) ||
-    (value.version !== 1 && value.version !== 2) ||
+    (value.version !== 1 && value.version !== 2 && value.version !== 3) ||
     !isRecord(value.boards)
   ) {
     return fallback;
@@ -238,16 +260,18 @@ export function sanitizeState(value: unknown, fallback: AppState): AppState {
     ? (value.activeBoardId as BoardId)
     : fallback.activeBoardId;
   const locale = parseLocale(value.locale as string) ?? fallback.locale;
+  const arrangeMode =
+    (value.version === 2 || value.version === 3) &&
+    typeof value.arrangeMode === "boolean"
+      ? value.arrangeMode
+      : false;
 
   return {
     ...fallback,
-    version: 2,
+    version: 3,
     activeBoardId,
     // v1のeditModeは「初期から開ける」方針に合わないため移行時は通常操作に戻す。
-    arrangeMode:
-      value.version === 2 && typeof value.arrangeMode === "boolean"
-        ? value.arrangeMode
-        : false,
+    arrangeMode,
     locale,
     boards: {
       "board-1": sanitizeBoard(value.boards["board-1"], fallback.boards["board-1"]),
