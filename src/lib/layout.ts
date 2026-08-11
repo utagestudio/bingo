@@ -91,7 +91,7 @@ export function shuffleItemCells(layout: BingoCell[]): BingoCell[] {
 
   let nextItemIndex = 0;
 
-  // Free Spaceは固定位置のまま、項目セルだけを入れ替える。
+  // Free Spaceは固定位置のまま、項目マスだけを入れ替える。
   return layout.map((cell) => {
     if (cell.type === "free") {
       return cell;

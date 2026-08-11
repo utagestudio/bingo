@@ -100,6 +100,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep overlay mode as a secondary path for browser sources, and do not assume it can read LocalStorage written by a normal browser profile.
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
+- Use `マス` rather than `セル` for Japanese user-facing bingo board wording; keep internal code identifiers such as `cell`, `BingoCell`, and `.board-cell` unchanged.
 - Store theme per board and do not let theme changes alter item text, layout, or marked state.
 - Store cell font scale per board and do not let font size changes alter item text, layout, or marked state.
 - When resetting a board, use the current locale for built-in sample titles and sample item labels.
