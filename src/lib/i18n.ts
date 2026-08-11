@@ -22,6 +22,7 @@ export type TranslationKey =
   | "clearMarks"
   | "quickGuideTitle"
   | "quickGuideNormal"
+  | "quickGuideCounter"
   | "quickGuideDrag";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
@@ -48,6 +49,8 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     quickGuideTitle: "使い方",
     quickGuideNormal:
       "通常時は、盤面のセルをクリックして項目を開閉できます。",
+    quickGuideCounter:
+      "項目の末尾に x10 または ×10 のように書くと、指定回数クリックで開くカウントマスになります。",
     quickGuideDrag:
       "並び替えモードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
@@ -74,6 +77,8 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     quickGuideTitle: "Quick guide",
     quickGuideNormal:
       "In normal use, click board cells to open or close them.",
+    quickGuideCounter:
+      "Add x10 or ×10 to the end of an item to make it a count cell that opens after that many clicks.",
     quickGuideDrag:
       "In Arrange Mode, drag board cells to rearrange their positions.",
   },

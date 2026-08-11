@@ -125,7 +125,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - In transparent mode, make both the app background and `.bingo-board` container background/border/shadow transparent while keeping cell backgrounds and state styling visible.
 - Use icon-plus-text option button groups instead of dropdowns for theme and language; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
-- Include a short guide in the editor panel explaining that normal use opens/closes cells and arrange mode allows drag rearrangement.
+- Include a short guide in the editor panel explaining that normal use opens/closes cells, trailing `x10` / `×10` creates count cells, and arrange mode allows drag rearrangement.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
