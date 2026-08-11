@@ -119,6 +119,12 @@ input:disabled {
   background: transparent;
 }
 
+.display-shell[data-transparent="true"] .bingo-board {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
 .app-header {
   display: flex;
   align-items: end;

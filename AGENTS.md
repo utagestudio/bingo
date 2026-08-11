@@ -122,6 +122,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep the browser page as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
 - Place font size in the right-aligned display group.
+- In transparent mode, make both the app background and `.bingo-board` container background/border/shadow transparent while keeping cell backgrounds and state styling visible.
 - Use icon-plus-text option button groups instead of dropdowns for theme and language; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
 - Include a short guide in the editor panel explaining that normal use opens/closes cells and arrange mode allows drag rearrangement.
