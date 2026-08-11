@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { BingoItem } from "../types/bingo";
 import {
+  advanceCellProgress,
   buildLayout,
+  decrementCellProgress,
   reorderItemCells,
   shuffleItemCells,
-  toggleCellMarked,
 } from "./layout";
 
 function createItems(count: number): BingoItem[] {
@@ -28,7 +29,7 @@ describe("layout", () => {
 
   it("preserves marked state and label updates by item id", () => {
     const items = createItems(4);
-    const layout = toggleCellMarked(buildLayout(items), "cell-item-2");
+    const layout = advanceCellProgress(buildLayout(items), "cell-item-2");
     const nextLayout = buildLayout(
       [
         items[0],
@@ -63,8 +64,42 @@ describe("layout", () => {
 
   it("does not unmark Free Space cells", () => {
     const layout = buildLayout(createItems(8));
-    const nextLayout = toggleCellMarked(layout, "free-4");
+    const nextLayout = advanceCellProgress(layout, "free-4");
 
     expect(nextLayout[4].marked).toBe(true);
+  });
+
+  it("opens count cells only after the target count is reached", () => {
+    const layout = buildLayout([
+      { id: "item-1", label: "Greeting", targetCount: 3 },
+    ]);
+    const firstClick = advanceCellProgress(layout, "cell-item-1");
+    const secondClick = advanceCellProgress(firstClick, "cell-item-1");
+    const thirdClick = advanceCellProgress(secondClick, "cell-item-1");
+    const fourthClick = advanceCellProgress(thirdClick, "cell-item-1");
+
+    expect(firstClick[0]).toMatchObject({ currentCount: 1, marked: false });
+    expect(secondClick[0]).toMatchObject({ currentCount: 2, marked: false });
+    expect(thirdClick[0]).toMatchObject({ currentCount: 3, marked: true });
+    expect(fourthClick[0]).toMatchObject({ currentCount: 3, marked: true });
+  });
+
+  it("decrements count cells and closes them when they fall below target", () => {
+    const layout = buildLayout([
+      { id: "item-1", label: "Greeting", targetCount: 2 },
+    ]);
+    const opened = advanceCellProgress(
+      advanceCellProgress(layout, "cell-item-1"),
+      "cell-item-1",
+    );
+    const decremented = decrementCellProgress(opened, "cell-item-1");
+    const zero = decrementCellProgress(
+      decrementCellProgress(decremented, "cell-item-1"),
+      "cell-item-1",
+    );
+
+    expect(opened[0]).toMatchObject({ currentCount: 2, marked: true });
+    expect(decremented[0]).toMatchObject({ currentCount: 1, marked: false });
+    expect(zero[0]).toMatchObject({ currentCount: 0, marked: false });
   });
 });

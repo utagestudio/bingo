@@ -1,6 +1,6 @@
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import type { CSSProperties } from "react";
+import type { CSSProperties, KeyboardEvent } from "react";
 import type { BingoCell, CellVisualStatus } from "../../types/bingo";
 
 type BoardCellProps = {
@@ -9,7 +9,8 @@ type BoardCellProps = {
   arrangeMode: boolean;
   fontSize: number;
   maxLines: number;
-  onToggleMarked: (cell: BingoCell) => void;
+  onAdvanceCell: (cell: BingoCell) => void;
+  onDecrementCell: (cell: BingoCell) => void;
 };
 
 export function BoardCell({
@@ -18,7 +19,8 @@ export function BoardCell({
   arrangeMode,
   fontSize,
   maxLines,
-  onToggleMarked,
+  onAdvanceCell,
+  onDecrementCell,
 }: BoardCellProps) {
   const dndEnabled = arrangeMode && cell.type === "item";
   const { attributes, listeners, setNodeRef: setDraggableRef, transform } =
@@ -26,6 +28,12 @@ export function BoardCell({
       id: cell.id,
       disabled: !dndEnabled,
     });
+  const {
+    role: _dragRole,
+    tabIndex: _dragTabIndex,
+    "aria-pressed": _dragAriaPressed,
+    ...dragAttributes
+  } = attributes;
   const { isOver, setNodeRef: setDroppableRef } = useDroppable({
     id: cell.id,
     disabled: !dndEnabled,
@@ -36,28 +44,66 @@ export function BoardCell({
     "--cell-max-lines": maxLines,
   } as CSSProperties;
 
-  function setCellRef(node: HTMLButtonElement | null) {
+  const hasCounter = cell.type === "item" && Boolean(cell.targetCount);
+  const canDecrement = !arrangeMode && hasCounter && (cell.currentCount ?? 0) > 0;
+  const progressLabel = hasCounter
+    ? `${cell.currentCount ?? 0}/${cell.targetCount}`
+    : null;
+  const ariaLabel = progressLabel
+    ? `${cell.label} ${progressLabel}`
+    : cell.label;
+
+  function setCellRef(node: HTMLDivElement | null) {
     setDraggableRef(node);
     setDroppableRef(node);
   }
 
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    onAdvanceCell(cell);
+  }
+
   return (
-    <button
+    <div
       ref={setCellRef}
       className="board-cell"
+      {...dragAttributes}
+      {...listeners}
+      role="button"
+      tabIndex={0}
+      aria-label={ariaLabel}
+      aria-pressed={cell.type === "item" ? cell.marked : undefined}
       data-cell-type={cell.type}
       data-visual-status={visualStatus}
       data-dragging-over={isOver ? "true" : "false"}
-      type="button"
       style={cellStyle}
-      onClick={() => onToggleMarked(cell)}
-      {...attributes}
-      {...listeners}
+      onClick={() => onAdvanceCell(cell)}
+      onKeyDown={handleKeyDown}
     >
       <span className="board-cell__label">{cell.label}</span>
+      {progressLabel ? (
+        <span className="board-cell__progress">{progressLabel}</span>
+      ) : null}
+      {canDecrement ? (
+        <button
+          className="board-cell__decrement"
+          type="button"
+          aria-label={`${cell.label} -1`}
+          onClick={(event) => {
+            event.stopPropagation();
+            onDecrementCell(cell);
+          }}
+        >
+          -
+        </button>
+      ) : null}
       {cell.type === "free" ? (
         <span className="board-cell__badge">FREE</span>
       ) : null}
-    </button>
+    </div>
   );
 }

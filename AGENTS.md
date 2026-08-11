@@ -86,6 +86,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Treat `rawInput` as the source of truth for entered item text.
 - Preserve the user-arranged layout when edits do not require a full layout rebuild.
 - Preserve `marked` state for existing items when regenerating layouts.
+- Preserve count cell `currentCount` and `targetCount` for existing items when regenerating layouts.
 - Treat Free Space cells as marked by default.
 - Treat Free Space cells as fixed: do not make them draggable, droppable, clickable to unmark, or part of shuffle.
 - Compute reach and bingo line status from the current layout instead of storing derived line state.
@@ -102,7 +103,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Store cell font scale per board and do not let font size changes alter item text, layout, or marked state.
 - When resetting a board, use the current locale for built-in sample titles and sample item labels.
 - Do not auto-overwrite valid existing LocalStorage data when defaults change; apply new defaults through explicit reset or fresh storage only.
-- Keep the clear-all-selections action scoped to item cells; Free Space must remain marked.
+- Keep the clear-all-selections action scoped to item cells; Free Space must remain marked and count cells should reset `currentCount` to 0.
 - Prefer small, focused modules over large files.
 - Avoid putting board generation, storage migration, line detection, and translation dictionaries directly in React components.
 - Add concise Japanese comments where the intent may not be obvious to the project owner.
@@ -147,7 +148,7 @@ Expected shape:
 
 ```ts
 type AppState = {
-  version: 3;
+  version: 4;
   activeBoardId: "board-1" | "board-2" | "board-3";
   arrangeMode: boolean;
   locale: "ja" | "en";
@@ -193,6 +194,9 @@ Default boards:
 Cell marking is part of the initial scope.
 
 - Clicking or tapping an item cell toggles its `marked` state while `arrangeMode` is off.
+- Item input lines ending with ` x<number>` or ` ×<number>` where number is greater than 1 create count cells.
+- Count cells increment `currentCount` by 1 per click while `arrangeMode` is off and become marked only when `currentCount >= targetCount`.
+- Count cells show progress and a small decrement button; decrementing below target clears `marked`.
 - Marked cells are visually highlighted.
 - Free Space cells start as `marked: true` and cannot be unmarked.
 - Rows, columns, and the two diagonals are bingo line candidates.

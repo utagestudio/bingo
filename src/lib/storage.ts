@@ -117,7 +117,7 @@ export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
 
 export function createDefaultState(locale: Locale): AppState {
   return {
-    version: 3,
+    version: 4,
     activeBoardId: "board-1",
     arrangeMode: false,
     locale,
@@ -183,6 +183,12 @@ function sanitizeItems(value: unknown): BingoItem[] {
     .map((item) => ({
       id: item.id as string,
       label: item.label as string,
+      targetCount:
+        typeof item.targetCount === "number" &&
+        Number.isInteger(item.targetCount) &&
+        item.targetCount > 1
+          ? item.targetCount
+          : undefined,
     }));
 }
 
@@ -205,6 +211,17 @@ function sanitizeLayout(value: unknown): BingoCell[] {
       itemId: typeof cell.itemId === "string" ? cell.itemId : undefined,
       label: cell.label as string,
       marked: typeof cell.marked === "boolean" ? cell.marked : false,
+      targetCount:
+        typeof cell.targetCount === "number" &&
+        Number.isInteger(cell.targetCount) &&
+        cell.targetCount > 1
+          ? cell.targetCount
+          : undefined,
+      currentCount:
+        typeof cell.currentCount === "number" &&
+        Number.isInteger(cell.currentCount)
+          ? Math.max(0, cell.currentCount)
+          : undefined,
     }));
 }
 
@@ -250,7 +267,10 @@ function sanitizeBoard(
 export function sanitizeState(value: unknown, fallback: AppState): AppState {
   if (
     !isRecord(value) ||
-    (value.version !== 1 && value.version !== 2 && value.version !== 3) ||
+    (value.version !== 1 &&
+      value.version !== 2 &&
+      value.version !== 3 &&
+      value.version !== 4) ||
     !isRecord(value.boards)
   ) {
     return fallback;
@@ -261,14 +281,14 @@ export function sanitizeState(value: unknown, fallback: AppState): AppState {
     : fallback.activeBoardId;
   const locale = parseLocale(value.locale as string) ?? fallback.locale;
   const arrangeMode =
-    (value.version === 2 || value.version === 3) &&
+    (value.version === 2 || value.version === 3 || value.version === 4) &&
     typeof value.arrangeMode === "boolean"
       ? value.arrangeMode
       : false;
 
   return {
     ...fallback,
-    version: 3,
+    version: 4,
     activeBoardId,
     // v1のeditModeは「初期から開ける」方針に合わないため移行時は通常操作に戻す。
     arrangeMode,

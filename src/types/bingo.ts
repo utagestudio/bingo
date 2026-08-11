@@ -11,7 +11,7 @@ export type Locale = (typeof LOCALES)[number];
 export type Theme = (typeof THEMES)[number];
 
 export type AppState = {
-  version: 3;
+  version: 4;
   activeBoardId: BoardId;
   arrangeMode: boolean;
   locale: Locale;
@@ -31,6 +31,7 @@ export type BoardState = {
 export type BingoItem = {
   id: string;
   label: string;
+  targetCount?: number;
 };
 
 export type BingoCell = {
@@ -39,6 +40,8 @@ export type BingoCell = {
   itemId?: string;
   label: string;
   marked: boolean;
+  targetCount?: number;
+  currentCount?: number;
 };
 
 export type BoardAppearance = {

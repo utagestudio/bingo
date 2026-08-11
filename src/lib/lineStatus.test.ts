@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { BingoCell } from "../types/bingo";
-import { buildLayout, toggleCellMarked } from "./layout";
+import { advanceCellProgress, buildLayout } from "./layout";
 import { getCellVisualStatuses, getLineStatuses } from "./lineStatus";
 
 function mark(layout: BingoCell[], cellIds: string[]): BingoCell[] {
@@ -10,7 +10,7 @@ function mark(layout: BingoCell[], cellIds: string[]): BingoCell[] {
       return nextLayout;
     }
 
-    return toggleCellMarked(nextLayout, cellId);
+    return advanceCellProgress(nextLayout, cellId);
   }, layout);
 }
 
