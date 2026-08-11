@@ -468,7 +468,7 @@ input:disabled {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 5px;
+  gap: 6px;
 }
 
 .board-cell__progress {
@@ -476,14 +476,14 @@ input:disabled {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: 34px;
-  height: 24px;
+  min-width: 42px;
+  height: 28px;
   border-radius: 999px;
-  padding: 0 6px;
+  padding: 0 8px;
   color: var(--cell-text);
   background: color-mix(in srgb, var(--surface), transparent 10%);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--border), transparent 28%);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1.2;
   user-select: none;
@@ -491,8 +491,8 @@ input:disabled {
 
 .board-cell__decrement {
   display: grid;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--border), transparent 10%);
   border-radius: 999px;
