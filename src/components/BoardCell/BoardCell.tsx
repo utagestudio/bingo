@@ -23,8 +23,13 @@ export function BoardCell({
   onDecrementCell,
 }: BoardCellProps) {
   const dndEnabled = arrangeMode && cell.type === "item";
-  const { attributes, listeners, setNodeRef: setDraggableRef, transform } =
-    useDraggable({
+  const {
+    attributes,
+    listeners,
+    setNodeRef: setDraggableRef,
+    transform,
+    isDragging,
+  } = useDraggable({
       id: cell.id,
       disabled: !dndEnabled,
     });
@@ -80,6 +85,7 @@ export function BoardCell({
       aria-pressed={cell.type === "item" ? cell.marked : undefined}
       data-cell-type={cell.type}
       data-visual-status={visualStatus}
+      data-dragging={isDragging ? "true" : "false"}
       data-dragging-over={isOver ? "true" : "false"}
       style={cellStyle}
       onClick={() => onAdvanceCell(cell)}
