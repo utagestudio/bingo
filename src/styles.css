@@ -465,8 +465,14 @@ input:disabled {
 }
 
 .board-cell__progress {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 34px;
+  height: 24px;
   border-radius: 999px;
-  padding: 2px 6px;
+  padding: 0 6px;
   color: var(--cell-text);
   background: color-mix(in srgb, var(--surface), transparent 10%);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--border), transparent 28%);
