@@ -454,10 +454,17 @@ input:disabled {
   user-select: none;
 }
 
-.board-cell__progress {
+.board-cell__counter-controls {
   position: absolute;
-  top: 7px;
   right: 7px;
+  bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.board-cell__progress {
   border-radius: 999px;
   padding: 2px 6px;
   color: var(--cell-text);
@@ -470,9 +477,6 @@ input:disabled {
 }
 
 .board-cell__decrement {
-  position: absolute;
-  left: 7px;
-  bottom: 7px;
   display: grid;
   width: 24px;
   height: 24px;

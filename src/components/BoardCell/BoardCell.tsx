@@ -86,34 +86,38 @@ export function BoardCell({
       onKeyDown={handleKeyDown}
     >
       <span className="board-cell__label">{cell.label}</span>
-      {progressLabel ? (
-        <span className="board-cell__progress">{progressLabel}</span>
-      ) : null}
-      {canShowDecrement ? (
-        <button
-          className="board-cell__decrement"
-          type="button"
-          aria-disabled={!canDecrement}
-          data-disabled={canDecrement ? "false" : "true"}
-          aria-label={`${cell.label} -1`}
-          onClick={(event) => {
-            event.stopPropagation();
-            if (!canDecrement) {
-              return;
-            }
+      {progressLabel || canShowDecrement ? (
+        <span className="board-cell__counter-controls">
+          {progressLabel ? (
+            <span className="board-cell__progress">{progressLabel}</span>
+          ) : null}
+          {canShowDecrement ? (
+            <button
+              className="board-cell__decrement"
+              type="button"
+              aria-disabled={!canDecrement}
+              data-disabled={canDecrement ? "false" : "true"}
+              aria-label={`${cell.label} -1`}
+              onClick={(event) => {
+                event.stopPropagation();
+                if (!canDecrement) {
+                  return;
+                }
 
-            onDecrementCell(cell);
-          }}
-        >
-          <svg
-            className="board-cell__decrement-icon"
-            viewBox="0 0 12 12"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M3 6h6" />
-          </svg>
-        </button>
+                onDecrementCell(cell);
+              }}
+            >
+              <svg
+                className="board-cell__decrement-icon"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M3 6h6" />
+              </svg>
+            </button>
+          ) : null}
+        </span>
       ) : null}
       {cell.type === "free" ? (
         <span className="board-cell__badge">FREE</span>
