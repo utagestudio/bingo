@@ -7,9 +7,23 @@ describe("storage defaults", () => {
 
     expect(board.name).toBe("Faaast Penguin （サンプル）");
     expect(board.items).toHaveLength(24);
-    expect(board.rawInput).toContain("ツアーに1位になる");
+    expect(board.rawInput).toContain("ツアーに1位になる x3");
+    expect(board.items[0]).toMatchObject({
+      label: "ツアーに1位になる",
+      targetCount: 3,
+    });
     expect(board.rawInput).toContain("缶詰を10個集めないでゴールする");
+    expect(board.items[16]).toMatchObject({
+      label: "ノックアウト（落下）せずゴールする",
+      targetCount: 10,
+    });
     expect(board.layout).toHaveLength(25);
+    expect(
+      board.layout.find((cell) => cell.itemId === board.items[0].id),
+    ).toMatchObject({
+      currentCount: 0,
+      targetCount: 3,
+    });
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
     expect(board.appearance.cellFontScale).toBe(100);
   });
@@ -20,18 +34,22 @@ describe("storage defaults", () => {
 
     expect(board.name).toBe("Faaast Penguin (Sample)");
     expect(board.items).toHaveLength(24);
-    expect(board.rawInput).toContain("Finish 1st in a Tour");
+    expect(board.rawInput).toContain("Finish 1st in a Tour x3");
+    expect(board.items[0]).toMatchObject({
+      label: "Finish 1st in a Tour",
+      targetCount: 3,
+    });
     expect(board.rawInput).toContain(
       "Use your Ultimate Ride 3 times in one Activity",
     );
     expect(board.rawInput).toContain("Finish without using your Ultimate Ride");
     expect(board.rawInput).toContain("Finish without collecting 10 sardine cans");
     expect(board.layout[12]).toMatchObject({ type: "free", marked: true });
-    expect(state.version).toBe(3);
+    expect(state.version).toBe(4);
     expect(state.arrangeMode).toBe(false);
   });
 
-  it("migrates v1 edit mode state to v3 arrange mode without losing board data", () => {
+  it("migrates v1 edit mode state to v4 arrange mode without losing board data", () => {
     const fallback = createDefaultState("ja");
     const migrated = sanitizeState(
       {
@@ -91,7 +109,7 @@ describe("storage defaults", () => {
       fallback,
     );
 
-    expect(migrated.version).toBe(3);
+    expect(migrated.version).toBe(4);
     expect(migrated.activeBoardId).toBe("board-2");
     expect(migrated.locale).toBe("en");
     expect(migrated.arrangeMode).toBe(false);
@@ -113,7 +131,7 @@ describe("storage defaults", () => {
     const fallback = createDefaultState("ja");
     const restored = sanitizeState(
       {
-        version: 3,
+        version: 4,
         activeBoardId: "board-1",
         arrangeMode: true,
         locale: "ja",
@@ -141,5 +159,45 @@ describe("storage defaults", () => {
     expect(restored.arrangeMode).toBe(true);
     expect(restored.boards["board-1"].appearance.cellFontScale).toBe(140);
     expect(restored.boards["board-2"].appearance.cellFontScale).toBe(80);
+  });
+
+  it("restores count cell progress from v4 data", () => {
+    const fallback = createDefaultState("ja");
+    const restored = sanitizeState(
+      {
+        version: 4,
+        activeBoardId: "board-2",
+        arrangeMode: false,
+        locale: "ja",
+        boards: {
+          "board-1": fallback.boards["board-1"],
+          "board-2": {
+            ...fallback.boards["board-2"],
+            rawInput: "Greeting x3",
+            items: [{ id: "item-a", label: "Greeting", targetCount: 3 }],
+            layout: [
+              {
+                id: "cell-item-a",
+                type: "item",
+                itemId: "item-a",
+                label: "Greeting",
+                marked: false,
+                targetCount: 3,
+                currentCount: 2,
+              },
+            ],
+          },
+          "board-3": fallback.boards["board-3"],
+        },
+      },
+      fallback,
+    );
+
+    expect(restored.boards["board-2"].layout[0]).toMatchObject({
+      label: "Greeting",
+      targetCount: 3,
+      currentCount: 2,
+      marked: false,
+    });
   });
 });

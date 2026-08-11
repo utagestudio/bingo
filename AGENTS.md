@@ -86,6 +86,8 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Treat `rawInput` as the source of truth for entered item text.
 - Preserve the user-arranged layout when edits do not require a full layout rebuild.
 - Preserve `marked` state for existing items when regenerating layouts.
+- Preserve count cell `currentCount` and `targetCount` for existing items when regenerating layouts.
+- Drop count metadata when an input line no longer has valid trailing count notation.
 - Treat Free Space cells as marked by default.
 - Treat Free Space cells as fixed: do not make them draggable, droppable, clickable to unmark, or part of shuffle.
 - Compute reach and bingo line status from the current layout instead of storing derived line state.
@@ -98,11 +100,12 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep overlay mode as a secondary path for browser sources, and do not assume it can read LocalStorage written by a normal browser profile.
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
+- Use `マス` rather than `セル` for Japanese user-facing bingo board wording; keep internal code identifiers such as `cell`, `BingoCell`, and `.board-cell` unchanged.
 - Store theme per board and do not let theme changes alter item text, layout, or marked state.
 - Store cell font scale per board and do not let font size changes alter item text, layout, or marked state.
 - When resetting a board, use the current locale for built-in sample titles and sample item labels.
 - Do not auto-overwrite valid existing LocalStorage data when defaults change; apply new defaults through explicit reset or fresh storage only.
-- Keep the clear-all-selections action scoped to item cells; Free Space must remain marked.
+- Keep the clear-all-selections action scoped to item cells; Free Space must remain marked and count cells should reset `currentCount` to 0.
 - Prefer small, focused modules over large files.
 - Avoid putting board generation, storage migration, line detection, and translation dictionaries directly in React components.
 - Add concise Japanese comments where the intent may not be obvious to the project owner.
@@ -120,13 +123,16 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep the browser page as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
 - Place font size in the right-aligned display group.
+- In transparent mode, make both the app background and `.bingo-board` container background/border/shadow transparent while keeping cell backgrounds and state styling visible.
 - Use icon-plus-text option button groups instead of dropdowns for theme and language; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
-- Include a short guide in the editor panel explaining that normal use opens/closes cells and arrange mode allows drag rearrangement.
+- Include a short guide in the editor panel explaining that normal use opens/closes cells, trailing `x10` creates count cells, and arrange mode allows drag rearrangement.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
 - When arrange mode is enabled, show the state on the board itself with subtle board-base coloring and item-cell affordance, not only on the toggle button.
+- During drag-and-drop, highlight the current source and swap target with a subdued yellowish frame color, not a heavy ring or enlarged treatment.
+- Do not transition the board cell `transform` used by drag-and-drop movement; it causes the dragged source to animate back from an offset after swap.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
 - Keep animations subtle and brief so they do not distract on stream.
 - Use restrained border radii and avoid overly decorative card-heavy layouts.
@@ -147,7 +153,7 @@ Expected shape:
 
 ```ts
 type AppState = {
-  version: 3;
+  version: 4;
   activeBoardId: "board-1" | "board-2" | "board-3";
   arrangeMode: boolean;
   locale: "ja" | "en";
@@ -183,6 +189,7 @@ This behavior should be covered by unit tests.
 Default boards:
 
 - Board 1 should initialize as a localized Faaast Penguin bingo sample with 24 item cells and one centered Free Space.
+- The Faaast Penguin sample should make Tour 1st-3rd count cells at `x3`, Activity 1st-3rd count cells at `x5`, and no-knockout-fall finish a count cell at `x10`.
 - In the English Faaast Penguin sample, translate Japanese `スペシャル` as `Ultimate Ride`.
 - Board 2 and Board 3 should initialize as empty boards.
 - Resetting the active board should recreate that board's default for the current locale.
@@ -193,6 +200,12 @@ Default boards:
 Cell marking is part of the initial scope.
 
 - Clicking or tapping an item cell toggles its `marked` state while `arrangeMode` is off.
+- Item input lines ending with ` x<number>` or ` ×<number>` where number is greater than 1 create count cells.
+- Count cells increment `currentCount` by 1 per click while `arrangeMode` is off and become marked only when `currentCount >= targetCount`.
+- Count cells show progress and a small decrement button; decrementing below target clears `marked`.
+- Count progress and decrement controls should sit together at the bottom right, ordered as progress then decrement.
+- Count progress and decrement controls should use matching visual heights.
+- Count decrement buttons remain visible in a subdued disabled state at 0 and must stop propagation so they never increment the parent cell.
 - Marked cells are visually highlighted.
 - Free Space cells start as `marked: true` and cannot be unmarked.
 - Rows, columns, and the two diagonals are bingo line candidates.

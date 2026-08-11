@@ -13,6 +13,7 @@ import {
   CELL_FONT_SCALE_MAX,
   CELL_FONT_SCALE_MIN,
 } from "../types/bingo";
+import { parseItemLine } from "./items";
 import { buildLayout } from "./layout";
 
 export const STORAGE_KEY = "achievement-bingo:v1";
@@ -24,12 +25,12 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
   ja: {
     name: "Faaast Penguin （サンプル）",
     lines: [
-      "ツアーに1位になる",
-      "ツアーに2位になる",
-      "ツアーに3位になる",
-      "アクティビティで1位になる",
-      "アクティビティで2位になる",
-      "アクティビティで3位になる",
+      "ツアーに1位になる x3",
+      "ツアーに2位になる x3",
+      "ツアーに3位になる x3",
+      "アクティビティで1位になる x5",
+      "アクティビティで2位になる x5",
+      "アクティビティで3位になる x5",
       "ツアー内の全アクティビティで同じ順位を取る",
       "1アクティビティでスペシャル3回発動",
       "走行中にエモートを使う",
@@ -40,7 +41,7 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
       "ピクセル・レボリューションで1万点とる",
       "スペシャルを使わないでゴールする",
       "パーティーIDでチームを組んで走る",
-      "ノックアウト（落下）せずゴールする",
+      "ノックアウト（落下）せずゴールする x10",
       "ボムザラシで爆破する",
       "パラグライダーを使う",
       "アザラシにアタックを決める",
@@ -53,12 +54,12 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
   en: {
     name: "Faaast Penguin (Sample)",
     lines: [
-      "Finish 1st in a Tour",
-      "Finish 2nd in a Tour",
-      "Finish 3rd in a Tour",
-      "Finish 1st in an Activity",
-      "Finish 2nd in an Activity",
-      "Finish 3rd in an Activity",
+      "Finish 1st in a Tour x3",
+      "Finish 2nd in a Tour x3",
+      "Finish 3rd in a Tour x3",
+      "Finish 1st in an Activity x5",
+      "Finish 2nd in an Activity x5",
+      "Finish 3rd in an Activity x5",
       "Get the same place in every Activity in a Tour",
       "Use your Ultimate Ride 3 times in one Activity",
       "Use an Emote while racing",
@@ -69,7 +70,7 @@ const DEFAULT_BOARD_1_SAMPLES: Record<
       "Score 10,000 points in Pixel Revolution",
       "Finish without using your Ultimate Ride",
       "Team up with a Party ID and race",
-      "Finish without dropping out from a fall",
+      "Finish without dropping out from a fall x10",
       "Blow up a Bombzarashi",
       "Use a paraglider",
       "Land an attack on a seal",
@@ -86,16 +87,17 @@ function createDefaultItems(id: BoardId, locale: Locale): BingoItem[] {
     return [];
   }
 
-  return DEFAULT_BOARD_1_SAMPLES[locale].lines.map((label, index) => ({
+  return DEFAULT_BOARD_1_SAMPLES[locale].lines.map((line, index) => ({
     id: `default-board-1-item-${index + 1}`,
-    label,
+    ...parseItemLine(line),
   }));
 }
 
 export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
   const now = new Date().toISOString();
   const items = createDefaultItems(id, locale);
-  const rawInput = items.map((item) => item.label).join("\n");
+  const rawInput =
+    id === "board-1" ? DEFAULT_BOARD_1_SAMPLES[locale].lines.join("\n") : "";
 
   return {
     id,
@@ -117,7 +119,7 @@ export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
 
 export function createDefaultState(locale: Locale): AppState {
   return {
-    version: 3,
+    version: 4,
     activeBoardId: "board-1",
     arrangeMode: false,
     locale,
@@ -183,6 +185,12 @@ function sanitizeItems(value: unknown): BingoItem[] {
     .map((item) => ({
       id: item.id as string,
       label: item.label as string,
+      targetCount:
+        typeof item.targetCount === "number" &&
+        Number.isInteger(item.targetCount) &&
+        item.targetCount > 1
+          ? item.targetCount
+          : undefined,
     }));
 }
 
@@ -205,6 +213,17 @@ function sanitizeLayout(value: unknown): BingoCell[] {
       itemId: typeof cell.itemId === "string" ? cell.itemId : undefined,
       label: cell.label as string,
       marked: typeof cell.marked === "boolean" ? cell.marked : false,
+      targetCount:
+        typeof cell.targetCount === "number" &&
+        Number.isInteger(cell.targetCount) &&
+        cell.targetCount > 1
+          ? cell.targetCount
+          : undefined,
+      currentCount:
+        typeof cell.currentCount === "number" &&
+        Number.isInteger(cell.currentCount)
+          ? Math.max(0, cell.currentCount)
+          : undefined,
     }));
 }
 
@@ -250,7 +269,10 @@ function sanitizeBoard(
 export function sanitizeState(value: unknown, fallback: AppState): AppState {
   if (
     !isRecord(value) ||
-    (value.version !== 1 && value.version !== 2 && value.version !== 3) ||
+    (value.version !== 1 &&
+      value.version !== 2 &&
+      value.version !== 3 &&
+      value.version !== 4) ||
     !isRecord(value.boards)
   ) {
     return fallback;
@@ -261,14 +283,14 @@ export function sanitizeState(value: unknown, fallback: AppState): AppState {
     : fallback.activeBoardId;
   const locale = parseLocale(value.locale as string) ?? fallback.locale;
   const arrangeMode =
-    (value.version === 2 || value.version === 3) &&
+    (value.version === 2 || value.version === 3 || value.version === 4) &&
     typeof value.arrangeMode === "boolean"
       ? value.arrangeMode
       : false;
 
   return {
     ...fallback,
-    version: 3,
+    version: 4,
     activeBoardId,
     // v1のeditModeは「初期から開ける」方針に合わないため移行時は通常操作に戻す。
     arrangeMode,

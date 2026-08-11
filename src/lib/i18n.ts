@@ -22,6 +22,7 @@ export type TranslationKey =
   | "clearMarks"
   | "quickGuideTitle"
   | "quickGuideNormal"
+  | "quickGuideCounter"
   | "quickGuideDrag";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
@@ -30,7 +31,7 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     arrangeMode: "並び替えモード",
     items: "項目",
     itemsPlaceholder: "1行に1項目ずつ入力",
-    shuffle: "ビンゴのセルの位置をシャッフルする",
+    shuffle: "ビンゴのマスの位置をシャッフルする",
     theme: "テーマ",
     light: "ライト",
     dark: "ダーク",
@@ -47,9 +48,11 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     clearMarks: "選択状態を全解除する",
     quickGuideTitle: "使い方",
     quickGuideNormal:
-      "通常時は、盤面のセルをクリックして項目を開閉できます。",
+      "通常時は、盤面のマスをクリックして項目を開閉できます。",
+    quickGuideCounter:
+      "項目の末尾に x10 のように書くと、指定回数クリックで開くカウントマスになります。",
     quickGuideDrag:
-      "並び替えモードでは、盤面のセルをドラッグして位置を入れ替えられます。",
+      "並び替えモードでは、盤面のマスをドラッグして位置を入れ替えられます。",
   },
   en: {
     appTitle: "Achievement Bingo",
@@ -74,6 +77,8 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     quickGuideTitle: "Quick guide",
     quickGuideNormal:
       "In normal use, click board cells to open or close them.",
+    quickGuideCounter:
+      "Add x10 to the end of an item to make it a count cell that opens after that many clicks.",
     quickGuideDrag:
       "In Arrange Mode, drag board cells to rearrange their positions.",
   },

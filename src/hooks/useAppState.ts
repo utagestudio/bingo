@@ -10,10 +10,11 @@ import type {
 import { calculateBoardSize } from "../lib/boardSize";
 import { reconcileItems } from "../lib/items";
 import {
+  advanceCellProgress,
   buildLayout,
+  decrementCellProgress,
   reorderItemCells,
   shuffleItemCells,
-  toggleCellMarked,
 } from "../lib/layout";
 import { parseQuery } from "../lib/query";
 import {
@@ -160,7 +161,7 @@ export function useAppState() {
     );
   }, []);
 
-  const toggleMarked = useCallback((cell: BingoCell) => {
+  const advanceCell = useCallback((cell: BingoCell) => {
     setState((current) => {
       if (current.arrangeMode || cell.type === "free") {
         return current;
@@ -168,7 +169,20 @@ export function useAppState() {
 
       return withUpdatedBoard(current, current.activeBoardId, (board) => ({
         ...board,
-        layout: toggleCellMarked(board.layout, cell.id),
+        layout: advanceCellProgress(board.layout, cell.id),
+      }));
+    });
+  }, []);
+
+  const decrementCell = useCallback((cell: BingoCell) => {
+    setState((current) => {
+      if (current.arrangeMode || cell.type === "free") {
+        return current;
+      }
+
+      return withUpdatedBoard(current, current.activeBoardId, (board) => ({
+        ...board,
+        layout: decrementCellProgress(board.layout, cell.id),
       }));
     });
   }, []);
@@ -229,6 +243,7 @@ export function useAppState() {
         layout: board.layout.map((cell) => ({
           ...cell,
           marked: cell.type === "free",
+          currentCount: cell.targetCount ? 0 : cell.currentCount,
         })),
       })),
     );
@@ -247,7 +262,8 @@ export function useAppState() {
     updateRawInput,
     shuffleBoard,
     reorderCells,
-    toggleMarked,
+    advanceCell,
+    decrementCell,
     setTheme,
     setTransparentBackground,
     setCellFontScale,

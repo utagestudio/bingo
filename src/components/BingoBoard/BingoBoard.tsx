@@ -10,7 +10,8 @@ type BingoBoardProps = {
   arrangeMode: boolean;
   cellFontScale: number;
   onReorder: (activeCellId: string, overCellId: string) => void;
-  onToggleMarked: (cell: BingoCell) => void;
+  onAdvanceCell: (cell: BingoCell) => void;
+  onDecrementCell: (cell: BingoCell) => void;
 };
 
 function getFontSettings(boardSize: number): { fontSize: number; maxLines: number } {
@@ -44,7 +45,8 @@ export function BingoBoard({
   arrangeMode,
   cellFontScale,
   onReorder,
-  onToggleMarked,
+  onAdvanceCell,
+  onDecrementCell,
 }: BingoBoardProps) {
   const { fontSize, maxLines } = getFontSettings(boardSize);
   const scaledFontSize = Math.round(fontSize * (cellFontScale / 100));
@@ -75,7 +77,8 @@ export function BingoBoard({
             arrangeMode={arrangeMode}
             fontSize={scaledFontSize}
             maxLines={maxLines}
-            onToggleMarked={onToggleMarked}
+            onAdvanceCell={onAdvanceCell}
+            onDecrementCell={onDecrementCell}
           />
         ))}
       </section>

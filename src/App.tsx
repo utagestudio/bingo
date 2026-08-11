@@ -23,7 +23,8 @@ export function App() {
     updateRawInput,
     shuffleBoard,
     reorderCells,
-    toggleMarked,
+    advanceCell,
+    decrementCell,
     setTheme,
     setTransparentBackground,
     setCellFontScale,
@@ -90,7 +91,8 @@ export function App() {
               arrangeMode={arrangeMode}
               cellFontScale={activeBoard.appearance.cellFontScale}
               onReorder={reorderCells}
-              onToggleMarked={toggleMarked}
+              onAdvanceCell={advanceCell}
+              onDecrementCell={decrementCell}
             />
           </div>
           {visibleControls ? (

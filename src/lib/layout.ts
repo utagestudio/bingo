@@ -12,12 +12,21 @@ function createFreeCell(index: number): BingoCell {
 }
 
 function createItemCell(item: BingoItem, previous?: BingoCell): BingoCell {
+  const currentCount =
+    item.targetCount && previous?.targetCount === item.targetCount
+      ? Math.min(previous.currentCount ?? 0, item.targetCount)
+      : 0;
+
   return {
     id: previous?.id ?? `cell-${item.id}`,
     type: "item",
     itemId: item.id,
     label: item.label,
-    marked: previous?.marked ?? false,
+    marked: item.targetCount
+      ? currentCount >= item.targetCount
+      : previous?.marked ?? false,
+    targetCount: item.targetCount,
+    currentCount: item.targetCount ? currentCount : undefined,
   };
 }
 
@@ -82,7 +91,7 @@ export function shuffleItemCells(layout: BingoCell[]): BingoCell[] {
 
   let nextItemIndex = 0;
 
-  // Free Spaceは固定位置のまま、項目セルだけを入れ替える。
+  // Free Spaceは固定位置のまま、項目マスだけを入れ替える。
   return layout.map((cell) => {
     if (cell.type === "free") {
       return cell;
@@ -122,7 +131,7 @@ export function reorderItemCells(
   return nextLayout;
 }
 
-export function toggleCellMarked(
+export function advanceCellProgress(
   layout: BingoCell[],
   cellId: string,
 ): BingoCell[] {
@@ -131,9 +140,41 @@ export function toggleCellMarked(
       return cell;
     }
 
+    if (cell.targetCount) {
+      const currentCount = Math.min(
+        cell.targetCount,
+        (cell.currentCount ?? 0) + 1,
+      );
+
+      return {
+        ...cell,
+        currentCount,
+        marked: currentCount >= cell.targetCount,
+      };
+    }
+
     return {
       ...cell,
       marked: !cell.marked,
+    };
+  });
+}
+
+export function decrementCellProgress(
+  layout: BingoCell[],
+  cellId: string,
+): BingoCell[] {
+  return layout.map((cell) => {
+    if (cell.id !== cellId || cell.type === "free" || !cell.targetCount) {
+      return cell;
+    }
+
+    const currentCount = Math.max(0, (cell.currentCount ?? 0) - 1);
+
+    return {
+      ...cell,
+      currentCount,
+      marked: currentCount >= cell.targetCount,
     };
   });
 }
