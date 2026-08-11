@@ -38,7 +38,7 @@ export function reconcileItems(
     // 行位置が同じならIDを維持し、入力修正でmarkedや配置が消えないようにする。
     if (previous) {
       return {
-        ...previous,
+        id: previous.id,
         ...parsed,
       };
     }

@@ -87,6 +87,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Preserve the user-arranged layout when edits do not require a full layout rebuild.
 - Preserve `marked` state for existing items when regenerating layouts.
 - Preserve count cell `currentCount` and `targetCount` for existing items when regenerating layouts.
+- Drop count metadata when an input line no longer has valid trailing count notation.
 - Treat Free Space cells as marked by default.
 - Treat Free Space cells as fixed: do not make them draggable, droppable, clickable to unmark, or part of shuffle.
 - Compute reach and bingo line status from the current layout instead of storing derived line state.

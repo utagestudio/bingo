@@ -51,4 +51,11 @@ describe("items", () => {
       { id: items[0].id, label: "Greeting", targetCount: 12 },
     ]);
   });
+
+  it("removes count targets when count notation is deleted", () => {
+    const items = reconcileItems("Greeting x10", []);
+    const nextItems = reconcileItems("Greeting", items);
+
+    expect(nextItems).toEqual([{ id: items[0].id, label: "Greeting" }]);
+  });
 });
