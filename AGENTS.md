@@ -132,6 +132,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
 - When arrange mode is enabled, show the state on the board itself with subtle board-base coloring and item-cell affordance, not only on the toggle button.
 - During drag-and-drop, highlight the current source and swap target with a subdued yellowish frame color, not a heavy ring or enlarged treatment.
+- Do not transition the board cell `transform` used by drag-and-drop movement; it causes the dragged source to animate back from an offset after swap.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
 - Keep animations subtle and brief so they do not distract on stream.
 - Use restrained border radii and avoid overly decorative card-heavy layouts.

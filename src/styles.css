@@ -344,7 +344,6 @@ input:disabled {
   transition:
     border-color 150ms ease,
     box-shadow 150ms ease,
-    transform 150ms ease,
     background 150ms ease;
   touch-action: none;
 }
