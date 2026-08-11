@@ -126,6 +126,7 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
+- When arrange mode is enabled, show the state on the board itself with subtle board-base coloring and item-cell affordance, not only on the toggle button.
 - Do not rely on color alone for important states; combine color with border, icon, shadow, or line emphasis.
 - Keep animations subtle and brief so they do not distract on stream.
 - Use restrained border radii and avoid overly decorative card-heavy layouts.
