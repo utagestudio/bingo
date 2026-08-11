@@ -105,7 +105,14 @@ export function BoardCell({
             onDecrementCell(cell);
           }}
         >
-          -
+          <svg
+            className="board-cell__decrement-icon"
+            viewBox="0 0 12 12"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M3 6h6" />
+          </svg>
         </button>
       ) : null}
       {cell.type === "free" ? (
