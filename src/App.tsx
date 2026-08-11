@@ -52,6 +52,7 @@ export function App() {
         className="app-shell"
         data-theme={activeBoard.appearance.theme}
         data-arrange-mode={arrangeMode ? "true" : "false"}
+        data-locale={state.locale}
         data-overlay-mode={overlayMode ? "true" : "false"}
       >
         {visibleControls ? (

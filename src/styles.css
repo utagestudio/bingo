@@ -402,6 +402,11 @@ input:disabled {
   overflow-wrap: anywhere;
 }
 
+.app-shell[data-locale="ja"] .board-cell__label {
+  line-break: strict;
+  word-break: normal;
+}
+
 .board-cell__badge {
   position: absolute;
   right: 8px;
