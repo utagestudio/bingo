@@ -481,6 +481,16 @@ input:disabled {
   font-size: 16px;
   font-weight: 900;
   line-height: 1;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.board-cell__decrement:hover {
+  border-color: color-mix(in srgb, var(--danger), var(--border) 34%);
+  background: color-mix(in srgb, var(--danger), var(--surface) 88%);
+  transform: scale(1.08);
 }
 
 .board-cell[data-visual-status="marked"] .board-cell__progress,
