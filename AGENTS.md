@@ -13,8 +13,8 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Automatically choose a square board size from the number of items.
 - Fill missing cells with `Free Space`, biased toward the center of the board.
 - Allow random item shuffling.
-- Allow drag-and-drop rearrangement only in edit mode.
-- Allow cells to be opened/closed and highlighted through the `marked` state only outside edit mode.
+- Allow cells to be opened/closed and highlighted through the `marked` state in the normal state.
+- Allow drag-and-drop rearrangement only while `arrangeMode` is enabled.
 - Show reach lines when a row, column, or diagonal is one cell away from bingo.
 - Show bingo lines when a row, column, or diagonal is fully marked.
 - Support Japanese and English UI text.
@@ -25,7 +25,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Auto-save state to LocalStorage.
 - Restore saved state after reload.
 - Support up to 3 saved boards and one-click board switching.
-- Support a play mode for bingo operation and OBS window capture where editing UI is hidden.
+- Support normal window-capture operation where the visible browser page is captured and unnecessary UI is cropped in OBS.
 - Provide a clear-all-selections action that unmarks item cells while keeping Free Space marked.
 - Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
 - Include a footer with `©UTAGE.GAMES` and a localized feedback link.
@@ -92,9 +92,9 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Resolve visual state priority as `bingo > reach > marked > normal`.
 - Make LocalStorage parsing defensive and versioned.
 - Avoid writing unrelated refactors while implementing product features.
-- Treat edit mode OFF as the primary OBS capture presentation state.
-- Keep play mode visually clean: no editing controls should appear except a minimal way to return to editing.
-- Design play mode for OBS window capture: stable board position, stable outer spacing, app-owned background, and easy OBS cropping.
+- Treat the normal state as the primary bingo operation state.
+- Keep `arrangeMode` narrowly scoped to drag-and-drop rearrangement.
+- Design the normal browser page for OBS window capture with stable board position, app-owned background, and easy OBS cropping.
 - Keep overlay mode as a secondary path for browser sources, and do not assume it can read LocalStorage written by a normal browser profile.
 - Keep overlay mode interactive for cell marking unless a future explicit read-only option is added.
 - Keep user-entered bingo item labels untranslated; localize only UI chrome and built-in labels.
@@ -115,16 +115,15 @@ Keep pure behavior in `src/lib/` so it can be unit tested without rendering Reac
 - Prioritize readability on stream over decoration.
 - Default to a light-leaning visual theme with clear borders and dark readable text.
 - Provide a dark theme for darker stream layouts while preserving clear state contrast.
-- Treat play mode as the main bingo operation and OBS window-capture surface: large centered board, stable spacing, app-owned background, and no editor chrome.
+- Treat the normal state as the main bingo operation surface: cell marking works immediately on first load.
 - Provide compact, standard, and fit display size options; compact favors OBS cropping, standard is larger, and fit uses as much browser space as practical.
 - Use standard as the default display size for new or reset boards.
-- Treat edit mode as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
+- Keep the browser page as a compact work surface: board preview plus practical controls for slots, input, shuffle, theme, and language.
 - Place theme, language, and transparent background controls as a separate appearance/environment group.
-- Place display size and the play-mode switch together as a right-aligned capture/play group, ordered as display size first and the play-mode switch second.
+- Place display size in the right-aligned capture/display group.
 - Use icon-plus-text option button groups instead of dropdowns for theme, language, and display size; show every option and highlight the selected one with background color rather than heavy borders or shadows.
 - Place the shuffle action near the item input area because it acts on entered bingo items.
-- Include a short guide in the editor panel explaining that play mode is used for bingo play and OBS capture, and edit mode allows drag rearrangement.
-- Keep the play-mode edit-return button small and positioned at the top right.
+- Include a short guide in the editor panel explaining that normal use opens/closes cells and arrange mode allows drag rearrangement.
 - Keep destructive or broad actions visually subdued, especially reset-current-board.
 - Place clear-all-selections directly above reset-current-board in the editor panel.
 - Use clear state styling for normal, Free Space, marked, reach, bingo, dragging, and drop-target states.
@@ -148,9 +147,9 @@ Expected shape:
 
 ```ts
 type AppState = {
-  version: 1;
+  version: 2;
   activeBoardId: "board-1" | "board-2" | "board-3";
-  editMode: boolean;
+  arrangeMode: boolean;
   locale: "ja" | "en";
   boards: Record<BoardId, BoardState>;
 };
@@ -193,7 +192,7 @@ Default boards:
 
 Cell marking is part of the initial scope.
 
-- Clicking or tapping an item cell toggles its `marked` state only outside edit mode.
+- Clicking or tapping an item cell toggles its `marked` state while `arrangeMode` is off.
 - Marked cells are visually highlighted.
 - Free Space cells start as `marked: true` and cannot be unmarked.
 - Rows, columns, and the two diagonals are bingo line candidates.
@@ -216,47 +215,34 @@ Japanese and English are part of the initial scope.
 - Do not translate user-entered board item text.
 - Built-in sample board titles and sample item labels are system-provided content and should be localized.
 
-## Edit Mode Rules
+## Arrange Mode Rules
 
-Editing is only allowed when edit mode is enabled.
+Cell marking is the default behavior. Drag rearrangement is allowed only when arrange mode is enabled.
 
-Allowed in edit mode:
+Always available on the normal browser page:
 
 - Text input edits
 - Random shuffle
-- Drag-and-drop
 - Slot name edits
 - Appearance changes
+- Cell marking when `arrangeMode` is off
 
-Disabled or hidden outside edit mode:
+Allowed only while `arrangeMode` is on:
 
-- Text input
-- Shuffle
 - Drag-and-drop
-- Layout-changing controls
 
-Cell marking is intentionally disabled in edit mode to avoid conflicts with drag-and-drop.
-
-Edit mode OFF must behave like the primary play mode for bingo operation and OBS capture.
-
-Play mode requirements:
-
-- Hide the editor panel and layout-changing controls.
-- Keep the board centered and large.
-- Keep app background visible for capture.
-- Keep spacing stable so OBS cropping remains reliable.
-- Provide a small edit-return button at the top right. A keyboard shortcut may be added, but the button should remain available.
+Cell marking is intentionally disabled while `arrangeMode` is on to avoid conflicts with drag-and-drop.
 
 Overlay mode is secondary and must default to display-only chrome, but browser-source LocalStorage isolation means it may start empty unless the state was created in the same browser context.
 
 ## Footer and Links
 
-- Show a subdued footer in edit mode.
+- Show a subdued footer on the normal browser page.
 - Link `©UTAGE.GAMES` to `https://utage.games/`.
 - Link feedback to `https://github.com/utagestudio/bingo/issues`.
 - Use `バグ報告・機能要望` for Japanese feedback text.
 - Use `Bug Reports & Feature Requests` for English feedback text.
-- Hide or minimize footer presence in play mode so OBS capture stays clean.
+- Hide or minimize footer presence in overlay mode so OBS capture stays clean.
 
 ## Testing Expectations
 
@@ -278,20 +264,18 @@ For logic changes, add or update unit tests for:
 
 For UI changes, manually or automatically verify:
 
-- edit mode gates layout-changing actions
-- edit mode disables cell marking
-- cell marking works outside edit mode
+- arrange mode gates drag-and-drop
+- arrange mode disables cell marking
+- cell marking works while arrange mode is off
 - Free Space cannot be dragged or unmarked
 - board switching works for all 3 slots
 - reload restores state
-- edit mode OFF hides editing controls and is suitable for OBS window capture
-- the small edit-return button returns from play mode to edit mode
-- play mode remains easy to crop in OBS
+- the normal browser page remains easy to crop in OBS
 - overlay URL hides controls
 - overlay still renders marked, reach, and bingo states correctly
 - Japanese and English UI can be switched
-- light and dark themes can be switched and play mode updates immediately
-- compact, standard, and fit display sizes can be switched and play mode updates immediately
+- light and dark themes can be switched and normal/overlay views update immediately
+- compact, standard, and fit display sizes can be switched and board size updates immediately
 - the board remains readable at common OBS sizes
 
 Before handing off implementation work, run the most relevant available checks, such as:

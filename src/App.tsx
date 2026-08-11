@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { BingoBoard } from "./components/BingoBoard/BingoBoard";
 import { BoardSwitcher } from "./components/BoardSwitcher/BoardSwitcher";
 import { DisplayShell } from "./components/DisplayShell/DisplayShell";
@@ -17,7 +17,7 @@ export function App() {
     overlayMode,
     storageAvailable,
     setActiveBoardId,
-    setEditMode,
+    setArrangeMode,
     setLocale,
     updateBoardName,
     updateRawInput,
@@ -39,35 +39,23 @@ export function App() {
     () => getCellVisualStatuses(activeBoard.layout, lineStatuses),
     [activeBoard.layout, lineStatuses],
   );
-  const visibleEditMode = state.editMode && !overlayMode;
-
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key.toLowerCase() === "e" && !overlayMode) {
-        setEditMode(true);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [overlayMode, setEditMode]);
+  const visibleControls = !overlayMode;
+  const arrangeMode = state.arrangeMode && !overlayMode;
 
   return (
     <DisplayShell
-      editMode={visibleEditMode}
       overlayMode={overlayMode}
       transparentBackground={activeBoard.appearance.transparentBackground}
       theme={activeBoard.appearance.theme}
-      onReturnToEdit={() => setEditMode(true)}
-      returnLabel={t("returnToEdit")}
     >
       <div
         className="app-shell"
         data-theme={activeBoard.appearance.theme}
-        data-edit-mode={visibleEditMode ? "true" : "false"}
+        data-arrange-mode={arrangeMode ? "true" : "false"}
+        data-overlay-mode={overlayMode ? "true" : "false"}
         data-display-scale={activeBoard.appearance.displayScale}
       >
-        {visibleEditMode ? (
+        {visibleControls ? (
           <header className="app-header">
             <div>
               <p className="app-header__eyebrow">{t("appTitle")}</p>
@@ -80,15 +68,13 @@ export function App() {
             />
           </header>
         ) : null}
-        {visibleEditMode ? (
+        {visibleControls ? (
           <Toolbar
-            editMode={visibleEditMode}
             theme={activeBoard.appearance.theme}
             displayScale={activeBoard.appearance.displayScale}
             locale={state.locale}
             transparentBackground={activeBoard.appearance.transparentBackground}
             t={t}
-            onEditModeChange={setEditMode}
             onThemeChange={setTheme}
             onDisplayScaleChange={setDisplayScale}
             onLocaleChange={setLocale}
@@ -101,21 +87,23 @@ export function App() {
               boardSize={boardSize}
               cells={activeBoard.layout}
               visualStatuses={visualStatuses}
-              editMode={visibleEditMode}
+              arrangeMode={arrangeMode}
               onReorder={reorderCells}
               onToggleMarked={toggleMarked}
             />
           </div>
-          {visibleEditMode ? (
+          {visibleControls ? (
             <EditorPanel
               boardName={activeBoard.name}
               rawInput={activeBoard.rawInput}
+              arrangeMode={arrangeMode}
               itemCount={activeBoard.items.length}
               boardSize={boardSize}
               savedLabel={storageAvailable ? t("saved") : "Storage unavailable"}
               t={t}
               onBoardNameChange={updateBoardName}
               onRawInputChange={updateRawInput}
+              onArrangeModeChange={setArrangeMode}
               onShuffle={shuffleBoard}
               onClearMarks={clearActiveBoardMarks}
               onResetBoard={resetActiveBoard}

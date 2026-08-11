@@ -63,7 +63,8 @@ export function useAppState() {
       ...loadedState,
       activeBoardId: queryOptions.boardId ?? loadedState.activeBoardId,
       locale: queryOptions.locale ?? loadedState.locale,
-      editMode: queryOptions.view === "overlay" ? false : loadedState.editMode,
+      arrangeMode:
+        queryOptions.view === "overlay" ? false : loadedState.arrangeMode,
       boards:
         queryOptions.transparent === null
           ? loadedState.boards
@@ -104,10 +105,10 @@ export function useAppState() {
     }));
   }, []);
 
-  const setEditMode = useCallback((editMode: boolean) => {
+  const setArrangeMode = useCallback((arrangeMode: boolean) => {
     setState((current) => ({
       ...current,
-      editMode,
+      arrangeMode,
     }));
   }, []);
 
@@ -162,7 +163,7 @@ export function useAppState() {
 
   const toggleMarked = useCallback((cell: BingoCell) => {
     setState((current) => {
-      if (current.editMode || cell.type === "free") {
+      if (current.arrangeMode || cell.type === "free") {
         return current;
       }
 
@@ -241,7 +242,7 @@ export function useAppState() {
     overlayMode,
     storageAvailable,
     setActiveBoardId,
-    setEditMode,
+    setArrangeMode,
     setLocale,
     updateBoardName,
     updateRawInput,

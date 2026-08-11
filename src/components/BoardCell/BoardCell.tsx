@@ -6,7 +6,7 @@ import type { BingoCell, CellVisualStatus } from "../../types/bingo";
 type BoardCellProps = {
   cell: BingoCell;
   visualStatus: CellVisualStatus;
-  editMode: boolean;
+  arrangeMode: boolean;
   fontSize: number;
   maxLines: number;
   onToggleMarked: (cell: BingoCell) => void;
@@ -15,12 +15,12 @@ type BoardCellProps = {
 export function BoardCell({
   cell,
   visualStatus,
-  editMode,
+  arrangeMode,
   fontSize,
   maxLines,
   onToggleMarked,
 }: BoardCellProps) {
-  const dndEnabled = editMode && cell.type === "item";
+  const dndEnabled = arrangeMode && cell.type === "item";
   const { attributes, listeners, setNodeRef: setDraggableRef, transform } =
     useDraggable({
       id: cell.id,

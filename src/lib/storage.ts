@@ -113,9 +113,9 @@ export function createDefaultBoard(id: BoardId, locale: Locale): BoardState {
 
 export function createDefaultState(locale: Locale): AppState {
   return {
-    version: 1,
+    version: 2,
     activeBoardId: "board-1",
-    editMode: true,
+    arrangeMode: false,
     locale,
     boards: {
       "board-1": createDefaultBoard("board-1", locale),
@@ -142,7 +142,7 @@ export function parseTheme(value: unknown): Theme {
 }
 
 export function parseDisplayScale(value: unknown): DisplayScale {
-  if (value === "standard" || value === "fit") {
+  if (value === "compact" || value === "standard" || value === "fit") {
     return value;
   }
 
@@ -226,7 +226,11 @@ function sanitizeBoard(
 }
 
 export function sanitizeState(value: unknown, fallback: AppState): AppState {
-  if (!isRecord(value) || value.version !== 1 || !isRecord(value.boards)) {
+  if (
+    !isRecord(value) ||
+    (value.version !== 1 && value.version !== 2) ||
+    !isRecord(value.boards)
+  ) {
     return fallback;
   }
 
@@ -237,9 +241,13 @@ export function sanitizeState(value: unknown, fallback: AppState): AppState {
 
   return {
     ...fallback,
+    version: 2,
     activeBoardId,
-    editMode:
-      typeof value.editMode === "boolean" ? value.editMode : fallback.editMode,
+    // v1のeditModeは「初期から開ける」方針に合わないため移行時は通常操作に戻す。
+    arrangeMode:
+      value.version === 2 && typeof value.arrangeMode === "boolean"
+        ? value.arrangeMode
+        : false,
     locale,
     boards: {
       "board-1": sanitizeBoard(value.boards["board-1"], fallback.boards["board-1"]),

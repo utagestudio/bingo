@@ -7,7 +7,7 @@ type BingoBoardProps = {
   boardSize: number;
   cells: BingoCell[];
   visualStatuses: Record<string, CellVisualStatus>;
-  editMode: boolean;
+  arrangeMode: boolean;
   onReorder: (activeCellId: string, overCellId: string) => void;
   onToggleMarked: (cell: BingoCell) => void;
 };
@@ -40,7 +40,7 @@ export function BingoBoard({
   boardSize,
   cells,
   visualStatuses,
-  editMode,
+  arrangeMode,
   onReorder,
   onToggleMarked,
 }: BingoBoardProps) {
@@ -69,7 +69,7 @@ export function BingoBoard({
             key={cell.id}
             cell={cell}
             visualStatus={visualStatuses[cell.id] ?? "normal"}
-            editMode={editMode}
+            arrangeMode={arrangeMode}
             fontSize={fontSize}
             maxLines={maxLines}
             onToggleMarked={onToggleMarked}

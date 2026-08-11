@@ -2,8 +2,7 @@ import type { Locale } from "../types/bingo";
 
 export type TranslationKey =
   | "appTitle"
-  | "editMode"
-  | "displayMode"
+  | "arrangeMode"
   | "items"
   | "itemsPlaceholder"
   | "shuffle"
@@ -13,7 +12,6 @@ export type TranslationKey =
   | "language"
   | "slotName"
   | "saved"
-  | "returnToEdit"
   | "freeSpace"
   | "transparent"
   | "itemCount"
@@ -26,15 +24,13 @@ export type TranslationKey =
   | "resetBoard"
   | "clearMarks"
   | "quickGuideTitle"
-  | "quickGuideDisplayModeBefore"
-  | "quickGuideDisplayModeAfter"
+  | "quickGuideNormal"
   | "quickGuideDrag";
 
 const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
   ja: {
     appTitle: "Achievement Bingo",
-    editMode: "編集モード",
-    displayMode: "プレイモードへ切り替え",
+    arrangeMode: "並び替えモード",
     items: "項目",
     itemsPlaceholder: "1行に1項目ずつ入力",
     shuffle: "ビンゴのセルの位置をシャッフルする",
@@ -44,7 +40,6 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     language: "言語",
     slotName: "盤面名",
     saved: "保存済み",
-    returnToEdit: "編集",
     freeSpace: "Free Space",
     transparent: "透過",
     itemCount: "項目数",
@@ -57,16 +52,14 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     resetBoard: "初期状態に戻す",
     clearMarks: "選択状態を全解除する",
     quickGuideTitle: "使い方",
-    quickGuideDisplayModeBefore:
-      "ビンゴとして使うときやOBSに取り込むときは、上部の",
-    quickGuideDisplayModeAfter: "でプレイモードにします。",
+    quickGuideNormal:
+      "通常時は、盤面のセルをクリックして項目を開閉できます。",
     quickGuideDrag:
-      "編集モードでは、盤面のセルをドラッグして位置を入れ替えられます。",
+      "並び替えモードでは、盤面のセルをドラッグして位置を入れ替えられます。",
   },
   en: {
     appTitle: "Achievement Bingo",
-    editMode: "Edit mode",
-    displayMode: "Switch to Play Mode",
+    arrangeMode: "Arrange Mode",
     items: "Items",
     itemsPlaceholder: "Enter one item per line",
     shuffle: "Shuffle bingo cell positions",
@@ -76,7 +69,6 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     language: "Language",
     slotName: "Board name",
     saved: "Saved",
-    returnToEdit: "Edit",
     freeSpace: "Free Space",
     transparent: "Transparent",
     itemCount: "Items",
@@ -89,11 +81,10 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     resetBoard: "Reset board",
     clearMarks: "Clear all selections",
     quickGuideTitle: "Quick guide",
-    quickGuideDisplayModeBefore:
-      "To play bingo or capture it in OBS, use",
-    quickGuideDisplayModeAfter: "in the top bar.",
+    quickGuideNormal:
+      "In normal use, click board cells to open or close them.",
     quickGuideDrag:
-      "In edit mode, drag board cells to rearrange their positions.",
+      "In Arrange Mode, drag board cells to rearrange their positions.",
   },
 };
 

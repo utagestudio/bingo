@@ -9,9 +9,9 @@ export type Theme = (typeof THEMES)[number];
 export type DisplayScale = (typeof DISPLAY_SCALES)[number];
 
 export type AppState = {
-  version: 1;
+  version: 2;
   activeBoardId: BoardId;
-  editMode: boolean;
+  arrangeMode: boolean;
   locale: Locale;
   boards: Record<BoardId, BoardState>;
 };

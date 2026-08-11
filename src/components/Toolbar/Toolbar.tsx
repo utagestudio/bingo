@@ -2,13 +2,11 @@ import type { DisplayScale, Locale, Theme } from "../../types/bingo";
 import type { TranslationKey } from "../../lib/i18n";
 
 type ToolbarProps = {
-  editMode: boolean;
   theme: Theme;
   displayScale: DisplayScale;
   locale: Locale;
   transparentBackground: boolean;
   t: (key: TranslationKey) => string;
-  onEditModeChange: (editMode: boolean) => void;
   onThemeChange: (theme: Theme) => void;
   onDisplayScaleChange: (displayScale: DisplayScale) => void;
   onLocaleChange: (locale: Locale) => void;
@@ -43,13 +41,11 @@ function ToolbarIcon({ kind }: { kind: "theme" | "language" | "display" }) {
 }
 
 export function Toolbar({
-  editMode,
   theme,
   displayScale,
   locale,
   transparentBackground,
   t,
-  onEditModeChange,
   onThemeChange,
   onDisplayScaleChange,
   onLocaleChange,
@@ -69,7 +65,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={theme === "light"}
               onClick={() => onThemeChange("light")}
             >
@@ -78,7 +73,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={theme === "dark"}
               onClick={() => onThemeChange("dark")}
             >
@@ -97,7 +91,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={locale === "ja"}
               onClick={() => onLocaleChange("ja")}
             >
@@ -106,7 +99,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={locale === "en"}
               onClick={() => onLocaleChange("en")}
             >
@@ -118,7 +110,6 @@ export function Toolbar({
           <input
             type="checkbox"
             checked={transparentBackground}
-            disabled={!editMode}
             onChange={(event) =>
               onTransparentBackgroundChange(event.currentTarget.checked)
             }
@@ -138,7 +129,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={displayScale === "compact"}
               onClick={() => onDisplayScaleChange("compact")}
             >
@@ -147,7 +137,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={displayScale === "standard"}
               onClick={() => onDisplayScaleChange("standard")}
             >
@@ -156,7 +145,6 @@ export function Toolbar({
             <button
               className="toolbar__option-button"
               type="button"
-              disabled={!editMode}
               aria-pressed={displayScale === "fit"}
               onClick={() => onDisplayScaleChange("fit")}
             >
@@ -164,14 +152,6 @@ export function Toolbar({
             </button>
           </div>
         </div>
-        <button
-          className="toolbar__button toolbar__button--primary"
-          type="button"
-          aria-pressed={editMode}
-          onClick={() => onEditModeChange(!editMode)}
-        >
-          {editMode ? t("displayMode") : t("editMode")}
-        </button>
       </div>
     </div>
   );
