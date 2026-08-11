@@ -456,7 +456,10 @@ input:disabled {
   color: var(--cell-text);
   background: var(--surface);
   font-weight: 800;
+  line-break: strict;
+  overflow-wrap: anywhere;
   text-align: center;
+  word-break: normal;
 }
 
 .editor-panel__arrange-toggle {
