@@ -45,7 +45,8 @@ export function BoardCell({
   } as CSSProperties;
 
   const hasCounter = cell.type === "item" && Boolean(cell.targetCount);
-  const canDecrement = !arrangeMode && hasCounter && (cell.currentCount ?? 0) > 0;
+  const canShowDecrement = !arrangeMode && hasCounter;
+  const canDecrement = canShowDecrement && (cell.currentCount ?? 0) > 0;
   const progressLabel = hasCounter
     ? `${cell.currentCount ?? 0}/${cell.targetCount}`
     : null;
@@ -88,13 +89,19 @@ export function BoardCell({
       {progressLabel ? (
         <span className="board-cell__progress">{progressLabel}</span>
       ) : null}
-      {canDecrement ? (
+      {canShowDecrement ? (
         <button
           className="board-cell__decrement"
           type="button"
+          aria-disabled={!canDecrement}
+          data-disabled={canDecrement ? "false" : "true"}
           aria-label={`${cell.label} -1`}
           onClick={(event) => {
             event.stopPropagation();
+            if (!canDecrement) {
+              return;
+            }
+
             onDecrementCell(cell);
           }}
         >

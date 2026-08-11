@@ -197,6 +197,7 @@ Cell marking is part of the initial scope.
 - Item input lines ending with ` x<number>` or ` ×<number>` where number is greater than 1 create count cells.
 - Count cells increment `currentCount` by 1 per click while `arrangeMode` is off and become marked only when `currentCount >= targetCount`.
 - Count cells show progress and a small decrement button; decrementing below target clears `marked`.
+- Count decrement buttons remain visible in a subdued disabled state at 0 and must stop propagation so they never increment the parent cell.
 - Marked cells are visually highlighted.
 - Free Space cells start as `marked: true` and cannot be unmarked.
 - Rows, columns, and the two diagonals are bingo line candidates.

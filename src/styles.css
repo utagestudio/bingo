@@ -497,6 +497,17 @@ input:disabled {
   transform: scale(1.08);
 }
 
+.board-cell__decrement[data-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.36;
+  transform: none;
+}
+
+.board-cell__decrement[data-disabled="true"]:hover {
+  border-color: color-mix(in srgb, var(--border), transparent 10%);
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+}
+
 .board-cell[data-visual-status="marked"] .board-cell__progress,
 .board-cell[data-visual-status="bingo"] .board-cell__progress,
 .board-cell[data-visual-status="marked"] .board-cell__decrement,
