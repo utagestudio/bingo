@@ -3,12 +3,14 @@ import type { TranslationKey } from "../../lib/i18n";
 type EditorPanelProps = {
   boardName: string;
   rawInput: string;
+  arrangeMode: boolean;
   itemCount: number;
   boardSize: number;
   savedLabel: string;
   t: (key: TranslationKey) => string;
   onBoardNameChange: (name: string) => void;
   onRawInputChange: (rawInput: string) => void;
+  onArrangeModeChange: (arrangeMode: boolean) => void;
   onShuffle: () => void;
   onClearMarks: () => void;
   onResetBoard: () => void;
@@ -17,12 +19,14 @@ type EditorPanelProps = {
 export function EditorPanel({
   boardName,
   rawInput,
+  arrangeMode,
   itemCount,
   boardSize,
   savedLabel,
   t,
   onBoardNameChange,
   onRawInputChange,
+  onArrangeModeChange,
   onShuffle,
   onClearMarks,
   onResetBoard,
@@ -44,13 +48,23 @@ export function EditorPanel({
           onChange={(event) => onRawInputChange(event.currentTarget.value)}
         />
       </label>
-      <button
-        className="editor-panel__shuffle"
-        type="button"
-        onClick={onShuffle}
-      >
-        {t("shuffle")}
-      </button>
+      <div className="editor-panel__layout-actions">
+        <button
+          className="editor-panel__shuffle"
+          type="button"
+          onClick={onShuffle}
+        >
+          {t("shuffle")}
+        </button>
+        <button
+          className="editor-panel__arrange-toggle"
+          type="button"
+          aria-pressed={arrangeMode}
+          onClick={() => onArrangeModeChange(!arrangeMode)}
+        >
+          {t("arrangeMode")}
+        </button>
+      </div>
       <div className="editor-panel__meta">
         <span>
           {t("itemCount")}: {itemCount}
@@ -62,13 +76,7 @@ export function EditorPanel({
       </div>
       <section className="editor-panel__guide" aria-labelledby="quick-guide-title">
         <h2 id="quick-guide-title">{t("quickGuideTitle")}</h2>
-        <p>
-          {t("quickGuideDisplayModeBefore")}
-          <strong className="editor-panel__guide-emphasis">
-            {t("displayMode")}
-          </strong>
-          {t("quickGuideDisplayModeAfter")}
-        </p>
+        <p>{t("quickGuideNormal")}</p>
         <p>{t("quickGuideDrag")}</p>
       </section>
       <div className="editor-panel__bottom-actions">

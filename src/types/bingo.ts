@@ -1,17 +1,19 @@
 export const BOARD_IDS = ["board-1", "board-2", "board-3"] as const;
 export const LOCALES = ["ja", "en"] as const;
 export const THEMES = ["light", "dark"] as const;
-export const DISPLAY_SCALES = ["compact", "standard", "fit"] as const;
+export const CELL_FONT_SCALE_MIN = 80;
+export const CELL_FONT_SCALE_MAX = 140;
+export const CELL_FONT_SCALE_STEP = 5;
+export const CELL_FONT_SCALE_DEFAULT = 100;
 
 export type BoardId = (typeof BOARD_IDS)[number];
 export type Locale = (typeof LOCALES)[number];
 export type Theme = (typeof THEMES)[number];
-export type DisplayScale = (typeof DISPLAY_SCALES)[number];
 
 export type AppState = {
-  version: 1;
+  version: 3;
   activeBoardId: BoardId;
-  editMode: boolean;
+  arrangeMode: boolean;
   locale: Locale;
   boards: Record<BoardId, BoardState>;
 };
@@ -42,7 +44,7 @@ export type BingoCell = {
 export type BoardAppearance = {
   transparentBackground: boolean;
   theme: Theme;
-  displayScale: DisplayScale;
+  cellFontScale: number;
 };
 
 export type LineKind = "row" | "column" | "diagonal";
