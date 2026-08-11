@@ -18,7 +18,7 @@ type ToolbarProps = {
   onTransparentBackgroundChange: (enabled: boolean) => void;
 };
 
-function ToolbarIcon({ kind }: { kind: "theme" | "language" | "display" }) {
+function ToolbarIcon({ kind }: { kind: "theme" | "language" | "font" }) {
   if (kind === "theme") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -39,8 +39,8 @@ function ToolbarIcon({ kind }: { kind: "theme" | "language" | "display" }) {
 
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="4" y="5" width="16" height="11" rx="2" />
-      <path d="M9 20h6M12 16v4" />
+      <path d="M4 19l5-14 5 14M6 14h6" />
+      <path d="M15 19l2.5-7 2.5 7M16 16h3" />
     </svg>
   );
 }
@@ -127,7 +127,7 @@ export function Toolbar({
           className="toolbar__range-group"
           aria-label={t("cellFontSize")}
         >
-          <ToolbarIcon kind="display" />
+          <ToolbarIcon kind="font" />
           <label className="toolbar__range-label" htmlFor="cell-font-scale">
             {t("cellFontSize")}
           </label>
