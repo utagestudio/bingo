@@ -52,8 +52,9 @@ export function BoardCell({
   const hasCounter = cell.type === "item" && Boolean(cell.targetCount);
   const canShowDecrement = !arrangeMode && hasCounter;
   const canDecrement = canShowDecrement && (cell.currentCount ?? 0) > 0;
+  const currentCount = cell.currentCount ?? 0;
   const progressLabel = hasCounter
-    ? `${cell.currentCount ?? 0}/${cell.targetCount}`
+    ? `${currentCount}/${cell.targetCount}`
     : null;
   const ariaLabel = progressLabel
     ? `${cell.label} ${progressLabel}`
@@ -92,38 +93,40 @@ export function BoardCell({
       onKeyDown={handleKeyDown}
     >
       <span className="board-cell__label">{cell.label}</span>
-      {progressLabel || canShowDecrement ? (
-        <span className="board-cell__counter-controls">
-          {progressLabel ? (
-            <span className="board-cell__progress">{progressLabel}</span>
-          ) : null}
-          {canShowDecrement ? (
-            <button
-              className="board-cell__decrement"
-              type="button"
-              aria-disabled={!canDecrement}
-              data-disabled={canDecrement ? "false" : "true"}
-              aria-label={`${cell.label} -1`}
-              onClick={(event) => {
-                event.stopPropagation();
-                if (!canDecrement) {
-                  return;
-                }
-
-                onDecrementCell(cell);
-              }}
-            >
-              <svg
-                className="board-cell__decrement-icon"
-                viewBox="0 0 12 12"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M3 6h6" />
-              </svg>
-            </button>
-          ) : null}
+      {progressLabel ? (
+        <span className="board-cell__progress" aria-hidden="true">
+          <span className="board-cell__progress-current">{currentCount}</span>
+          <span className="board-cell__progress-separator">/</span>
+          <span className="board-cell__progress-target">
+            {cell.targetCount}
+          </span>
         </span>
+      ) : null}
+      {canShowDecrement ? (
+        <button
+          className="board-cell__decrement"
+          type="button"
+          aria-disabled={!canDecrement}
+          data-disabled={canDecrement ? "false" : "true"}
+          aria-label={`${cell.label} -1`}
+          onClick={(event) => {
+            event.stopPropagation();
+            if (!canDecrement) {
+              return;
+            }
+
+            onDecrementCell(cell);
+          }}
+        >
+          <svg
+            className="board-cell__decrement-icon"
+            viewBox="0 0 12 12"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M3 6h6" />
+          </svg>
+        </button>
       ) : null}
       {cell.type === "free" ? (
         <span className="board-cell__badge">FREE</span>

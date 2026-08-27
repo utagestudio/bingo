@@ -203,8 +203,9 @@ Cell marking is part of the initial scope.
 - Item input lines ending with ` x<number>` or ` ×<number>` where number is greater than 1 create count cells.
 - Count cells increment `currentCount` by 1 per click while `arrangeMode` is off and become marked only when `currentCount >= targetCount`.
 - Count cells show progress and a small decrement button; decrementing below target clears `marked`.
-- Count progress and decrement controls should sit together at the bottom right, ordered as progress then decrement.
-- Count progress and decrement controls should use matching visual heights, and the progress badge should be large and visually firm enough to read on stream.
+- Count progress should sit at the bottom right as plain overlaid text, not as a button-like badge.
+- Count progress should emphasize the numerator with larger colored text while keeping the denominator smaller.
+- Count decrement buttons should sit separately toward the bottom left and do not need to match the progress display height.
 - Count decrement buttons remain visible in a subdued disabled state at 0 and must stop propagation so they never increment the parent cell.
 - Marked cells are visually highlighted.
 - Free Space cells start as `marked: true` and cannot be unmarked.

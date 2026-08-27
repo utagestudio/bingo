@@ -461,41 +461,38 @@ input:disabled {
   user-select: none;
 }
 
-.board-cell__counter-controls {
+.board-cell__progress {
   position: absolute;
-  right: 7px;
-  bottom: 7px;
+  right: 8px;
+  bottom: 6px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-}
-
-.board-cell__progress {
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  min-width: 52px;
-  height: 32px;
-  border-radius: 999px;
-  padding: 0 10px;
-  border: 2px solid color-mix(in srgb, var(--border), var(--cell-text) 20%);
-  color: var(--cell-text);
-  background: color-mix(in srgb, var(--surface), transparent 2%);
-  box-shadow:
-    0 1px 2px rgb(15 23 42 / 0.12),
-    0 0 0 1px color-mix(in srgb, var(--surface), transparent 20%);
-  font-size: 15px;
+  gap: 1px;
+  color: color-mix(in srgb, var(--cell-text), transparent 28%);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1;
   user-select: none;
 }
 
+.board-cell__progress-current {
+  color: color-mix(in srgb, var(--reach), var(--cell-text) 14%);
+  font-size: 26px;
+  line-height: 0.9;
+}
+
+.board-cell__progress-separator,
+.board-cell__progress-target {
+  font-size: 14px;
+}
+
 .board-cell__decrement {
+  position: absolute;
+  left: 7px;
+  bottom: 7px;
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--border), transparent 10%);
   border-radius: 999px;
@@ -538,8 +535,6 @@ input:disabled {
   background: color-mix(in srgb, var(--surface), transparent 8%);
 }
 
-.board-cell[data-visual-status="marked"] .board-cell__progress,
-.board-cell[data-visual-status="bingo"] .board-cell__progress,
 .board-cell[data-visual-status="marked"] .board-cell__decrement,
 .board-cell[data-visual-status="bingo"] .board-cell__decrement {
   color: var(--marked-text);
