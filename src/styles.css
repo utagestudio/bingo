@@ -466,7 +466,7 @@ input:disabled {
   right: 8px;
   bottom: 6px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 1px;
   color: color-mix(in srgb, var(--cell-text), transparent 28%);
@@ -478,7 +478,7 @@ input:disabled {
 .board-cell__progress-current {
   color: color-mix(in srgb, var(--reach), var(--cell-text) 14%);
   font-size: 26px;
-  line-height: 0.9;
+  line-height: 1;
 }
 
 .board-cell__progress-separator,

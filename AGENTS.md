@@ -205,6 +205,7 @@ Cell marking is part of the initial scope.
 - Count cells show progress and a small decrement button; decrementing below target clears `marked`.
 - Count progress should sit at the bottom right as plain overlaid text, not as a button-like badge.
 - Count progress should emphasize the numerator with larger colored text while keeping the denominator smaller.
+- Align count progress numerator and denominator on their text baseline so the fraction reads as one unit.
 - Count decrement buttons should sit separately toward the bottom left and do not need to match the progress display height.
 - Count decrement buttons remain visible in a subdued disabled state at 0 and must stop propagation so they never increment the parent cell.
 - Marked cells are visually highlighted.
