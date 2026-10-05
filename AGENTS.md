@@ -326,6 +326,7 @@ When adding setup commands, deployment commands, or environment requirements, do
 
 When making commits for this project:
 
+- Create or switch to a work branch before committing; never commit directly to `master`.
 - Write the commit subject in English.
 - Add the detailed commit body in Japanese.
 - Do not insert unnecessary blank lines in the commit body.
