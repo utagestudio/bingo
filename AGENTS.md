@@ -28,7 +28,7 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 - Support normal window-capture operation where the visible browser page is captured and unnecessary UI is cropped in OBS.
 - Provide a clear-all-selections action that unmarks item cells while keeping Free Space marked.
 - Provide a reset-current-board action that rebuilds the active board from the current locale's default state.
-- Include a footer with `©UTAGE.GAMES` and a localized feedback link.
+- Include a footer with `©UTAGE.GAMES`, a localized contact form link first, and the existing GitHub feedback link.
 - Optionally install Google Analytics only when `VITE_GA_MEASUREMENT_ID` is provided at build time.
 - Include Japanese OGP metadata and `public/ogp.png` for SNS sharing.
 - Keep `?view=overlay` as a secondary browser-source-oriented mode, with clear awareness that LocalStorage may not be shared with OBS browser sources.
@@ -254,9 +254,11 @@ Overlay mode is secondary and must default to display-only chrome, but browser-s
 
 - Show a subdued footer on the normal browser page.
 - Link `©UTAGE.GAMES` to `https://utage.games/`.
+- Show the contact form before GitHub feedback, using `バグ報告・機能要望` in Japanese and `Bug Reports & Feature Requests` in English.
+- Use `https://tally.so/r/kdVdDR?product=Achievement%20Bingo` for Japanese and `https://tally.so/r/KYqY78?product=Achievement%20Bingo` for English, following the selected locale.
+- Keep `product` as `Achievement Bingo` and omit `version` in both app and documentation links because this tool has no explicit product version.
 - Link feedback to `https://github.com/utagestudio/bingo/issues`.
-- Use `バグ報告・機能要望` for Japanese feedback text.
-- Use `Bug Reports & Feature Requests` for English feedback text.
+- Use `GitHub Issues` for the GitHub feedback link text in both locales.
 - Hide or minimize footer presence in overlay mode so OBS capture stays clean.
 
 ## Testing Expectations
@@ -324,6 +326,7 @@ When adding setup commands, deployment commands, or environment requirements, do
 
 When making commits for this project:
 
+- Create or switch to a work branch before committing; never commit directly to `master`.
 - Write the commit subject in English.
 - Add the detailed commit body in Japanese.
 - Do not insert unnecessary blank lines in the commit body.

@@ -17,6 +17,7 @@ export type TranslationKey =
   | "itemCount"
   | "boardSize"
   | "feedback"
+  | "contact"
   | "cellFontSize"
   | "resetBoard"
   | "clearMarks"
@@ -42,7 +43,8 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     transparent: "透過",
     itemCount: "項目数",
     boardSize: "盤面",
-    feedback: "バグ報告・機能要望",
+    feedback: "GitHub Issues",
+    contact: "バグ報告・機能要望",
     cellFontSize: "フォントサイズ",
     resetBoard: "初期状態に戻す",
     clearMarks: "選択状態を全解除する",
@@ -70,7 +72,8 @@ const dictionaries: Record<Locale, Record<TranslationKey, string>> = {
     transparent: "Transparent",
     itemCount: "Items",
     boardSize: "Board",
-    feedback: "Bug Reports & Feature Requests",
+    feedback: "GitHub Issues",
+    contact: "Bug Reports & Feature Requests",
     cellFontSize: "Font size",
     resetBoard: "Reset board",
     clearMarks: "Clear all selections",

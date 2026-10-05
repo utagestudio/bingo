@@ -79,6 +79,12 @@ npm run build
 npx wrangler deploy
 ```
 
+## お問い合わせ / Contact
+
+不具合の報告、要望、質問は[お問い合わせフォーム](https://tally.so/r/kdVdDR?product=Achievement%20Bingo)へお送りください。[GitHub Issues](https://github.com/utagestudio/bingo/issues)でも受け付けています。
+
+For bug reports, feature requests, and questions, use the [contact form](https://tally.so/r/KYqY78?product=Achievement%20Bingo) or [GitHub Issues](https://github.com/utagestudio/bingo/issues).
+
 ## License
 
 MIT

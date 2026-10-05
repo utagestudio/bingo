@@ -664,6 +664,7 @@ input:disabled {
 
 .site-footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   width: min(100%, 1400px);
