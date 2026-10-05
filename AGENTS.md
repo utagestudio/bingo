@@ -258,7 +258,7 @@ Overlay mode is secondary and must default to display-only chrome, but browser-s
 - Use `https://tally.so/r/kdVdDR?product=Achievement%20Bingo` for Japanese and `https://tally.so/r/KYqY78?product=Achievement%20Bingo` for English, following the selected locale.
 - Keep `product` as `Achievement Bingo` and omit `version` in both app and documentation links because this tool has no explicit product version.
 - Link feedback to `https://github.com/utagestudio/bingo/issues`.
-- Use `github issues` for the GitHub feedback link text in both locales.
+- Use `GitHub Issues` for the GitHub feedback link text in both locales.
 - Hide or minimize footer presence in overlay mode so OBS capture stays clean.
 
 ## Testing Expectations
