@@ -113,7 +113,7 @@ export function App() {
             />
           ) : null}
         </div>
-        <Footer t={t} />
+        <Footer locale={state.locale} t={t} />
       </div>
     </DisplayShell>
   );

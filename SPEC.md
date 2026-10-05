@@ -633,6 +633,9 @@ overlayは、OBSブラウザソースなどで表示専用URLを使いたい場�
 通常画面では、画面下部に控えめなフッターを表示する。
 
 - 著作権表記は `©UTAGE.GAMES` とし、リンク先は `https://utage.games/` とする。
+- 問い合わせフォームを先に案内し、日本語では `お問い合わせ`、英語では `Contact` と表示する。
+- 日本語フォームは `https://tally.so/r/kdVdDR?product=Achievement%20Bingo`、英語フォームは `https://tally.so/r/KYqY78?product=Achievement%20Bingo` とし、UIの言語切り替えに追従する。
+- 製品名は `Achievement Bingo` とする。明確な製品バージョンを設けていないため、アプリ・文書ともに `version` パラメータは付けない。
 - フィードバックリンクを置き、日本語では `バグ報告・機能要望`、英語では `Bug Reports & Feature Requests` と表示する。
 - フィードバックリンクのURLは `https://github.com/utagestudio/bingo/issues` とする。
 - overlayではOBS取り込みの邪魔にならないよう、フッターは非表示にする。
