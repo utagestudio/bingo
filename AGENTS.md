@@ -36,6 +36,9 @@ Primary requirements are documented in [SPEC.md](./SPEC.md).
 
 ## Recommended Stack
 
+- Use Node.js 26.x (at least 26.12.1) for development and builds. Keep the exact version in `mise.toml` and `.node-version` aligned with Cloudflare builds.
+- Follow Node.js 26.x security releases, verify tests and builds before updating the pinned version, and synchronize the documented version and `engines` minimum when needed.
+
 Prefer this stack unless the repository already contains a different implemented direction:
 
 - Vite

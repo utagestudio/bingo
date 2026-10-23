@@ -26,6 +26,8 @@ Achievement Bingoは、OBSのウィンドウキャプチャで取り込んで表
 
 ### 推奨スタック
 
+- 開発・ビルド環境はNode.js 26系（26.12.1以上）とする。検証用バージョンは `mise.toml` と `.node-version` で26.12.1に固定し、Cloudflareのビルド環境も揃える。
+- 26系のセキュリティ修正版へ追従し、テスト・ビルド確認後に固定バージョンと関連ドキュメントを更新する。
 - Vite + TypeScript
 - React
 - CSS Modulesまたは通常のCSS

@@ -17,8 +17,22 @@ OBSのウィンドウキャプチャで取り込むことを想定した、ク�
 
 ## 使い方
 
+開発・ビルドにはNode.js 26系（26.12.1以上）を使用します。検証用バージョンは `mise.toml` と `.node-version` で26.12.1に固定しています。
+
+miseを使う場合は、リポジトリ内で次のコマンドを実行してください。
+
 ```bash
-npm install
+mise trust
+mise install
+mise exec -- node --version
+mise exec -- npm ci
+mise exec -- npm run dev
+```
+
+別のバージョン管理ツールを使う場合は、`.node-version` のバージョンを有効にしてから実行します。
+
+```bash
+npm ci
 npm run dev
 ```
 
@@ -73,6 +87,14 @@ Cloudflareでは、Variables and secretsに同じ名前の環境変数を設定�
 ## Cloudflare
 
 静的ビルド成果物は `dist/` に出力されます。`wrangler.jsonc` はCloudflare Workers Static Assets向けに設定しています。
+
+Cloudflare Workers Buildsでは、リポジトリルートの `.node-version` でNode.jsのバージョンを指定します。Settings > Build > Build Variables and Secretsに `NODE_VERSION` が設定されている場合は、削除してファイル指定に統一するか、同じ `26.12.1` に揃えてください。設定変更後はビルドログで実際のNode.jsバージョンを確認し、ビルドと公開画面を検証します。ビルドコマンドの先頭に `node --version &&` を付けると確認できます。
+
+これはビルド環境の設定です。`wrangler.jsonc` の `compatibility_date` はNode.jsのバージョン指定には使用しません。
+
+参考: [Cloudflare Workers Buildsのビルドイメージ](https://developers.cloudflare.com/workers/ci-cd/builds/build-image/)
+
+Node.jsのセキュリティ更新時は、26系の修正版で検証し、`mise.toml`・`.node-version`・このREADMEの固定バージョンを同時に更新します。最低要件を引き上げる場合は `package.json` の `engines` と `package-lock.json` も同期してください。Cloudflare側で `NODE_VERSION` を使っている場合は併せて更新します。
 
 ```bash
 npm run build
